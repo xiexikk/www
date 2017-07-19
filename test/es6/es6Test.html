@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6</title>
+</head>
+<body>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<!-- --------------let---------------- -->
+<script>
+{
+    let a = 10;
+    var b = 1;
+}
+    //console.log(a); a is not defined.
+    console.log(b);
+</script>
+
+<script>
+    for(let i=0; i<10; i++){
+        //....
+    }
+   // console.log(i); //i is not defined.
+</script>
+
+<script>
+// 下面的代码如果使用var，最后输出的是10。
+    var a = [];
+    for (var i = 0; i < 10; i++) {
+      a[i] = function () {
+        console.log(i);
+      };
+    }
+    a[6]();    //10
+</script>
+
+<script>
+//如果使用let，声明的变量仅在块级作用域内有效，最后输出的是6。
+    var a = [];
+    for (let i = 0; i < 10; i++) {
+      a[i] = function () {
+        console.log(i);
+      };
+    }
+    a[6]();    //6
+</script>
+
+<script>
+    for(let i = 0; i<3; i++){
+        let i = 'abc';
+        console.log(i);
+    }
+</script>
+
+<script>
+    // var 的情况
+    console.log(foo); // 输出undefined
+    var foo = 2;
+    // let 的情况
+    //console.log(bar); // 报错ReferenceError
+    let bar = 2;
+</script>
+
+<script>
+    var tmp = 123;
+    if(true){
+        //tmp = 'abc'; //tmp is not defined
+        //let tmp;
+    }
+</script>
+
+<script>
+    if (true) {
+      // TDZ开始
+        //  tmp = 'abc'; // ReferenceError
+        //  console.log(tmp); // ReferenceError
+
+         // let tmp; // TDZ结束
+        //  console.log(tmp); // undefined
+
+          tmp = 123;
+          console.log(tmp); // 123
+    }
+</script>
+<script>
+/*    function bar(x = y, y = 2) {
+        return [x, y];
+    }
+    //bar(); // 报错*/
+
+    function bar2(x = 2, y = x) {
+        return [x, y];
+    }
+    bar2(); // [2, 2]
+    console.log(bar2());
+</script>
+
+<script>
+// let不允许在相同作用域内，重复声明同一个变量
+    // 报错
+   /* function () {
+      let a = 10;
+      var a = 1;
+    }*/
+    // 报错
+   /* function () {
+      let a = 10;
+      let a = 1;
+    }*/
+
+// 因此，不能在函数内部重新声明参数。
+   /* function func(arg){
+        let arg;     //Identifier 'arg' has already been declared
+    }*/
+    function func(arg) {
+        {
+            let arg; // 不报错
+        }
+    }
+</script>
+
+<script>
+// 第一种场景，内层变量可能会覆盖外层变量。
+    var tmp = new Date();
+    function f(){
+        console.log(tmp);
+        if(false){
+            var tmp = 'hello word';
+        }
+    }
+    f();
+// 第二种场景，用来计数的循环变量泄露为全局变量。
+    var s = 'hello';
+    for (var i = 0; i < s.length; i++) {
+      console.log(s[i]);
+    }
+    console.log(i); // 5
+</script>
+
+<script>
+    //let实际上为 JavaScript 新增了块级作用域。
+    function f1() {
+      let n = 2;
+      if (true) {
+        let n = 10;
+      }
+      console.log(n); // 2
+    }
+    f1();
+
+    function f2() {
+      var n = 2;
+      if (true) {
+        var n = 10;
+      }
+      console.log(n); // 10
+    }
+    f2();
+
+/*上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果两次都使用var定义变量n，最后输出的值才是10。*/
+</script>
+
+<script>
+    //ES6 允许块级作用域的任意嵌套。
+    {{{{{let insane = 'Hello World'}}}}};
+
+    // IIFE 写法
+    (function () {
+      /*var tmp = ...;
+      ...*/
+    }());
+
+    // 块级作用域写法
+    {
+     /* let tmp = ...;
+      ...*/
+    }
+</script>
+
+<script>
+// do 表达式
+/*    {
+      let t = ff();
+      t = t * t + 1;
+    }
+*/
+/*    let x = do{
+        let t = ff();
+        t * t + 1;
+    };*/
+</script>
+
+<!-- --------------const---------------- -->
+<script>
+    // const声明一个只读的常量。一旦声明，常量的值就不能改变。
+    const PI = 3.1415;
+    console.log(PI);
+    //PI=3;  // TypeError: Assignment to constant variable.
+
+    //对于const来说，只声明不赋值，就会报错。
+    //const foo; // SyntaxError: Missing initializer in const declaration
+
+    if (true) {
+      const MAX = 5;
+      console.log(MAX);
+    }
+    //console.log(MAX);  // UncaughtReferenceError: MAX is not defined
+
+    if (true) {
+      //console.log(MAX); // ReferenceError:MAX is not defined
+      const MAX = 5;
+    }
+
+    var message = "Hello!";
+    //let age = 25;
+
+    // 以下两行都会报错
+   // const message = "Goodbye!";
+    //const age = 30;
+
+</script>
+
+<!-- -----------------------解构赋值--------------------------- -->
+<!-- 变量赋值，传统的变量赋值是这样的： -->
+<script type="text/javascript">
+    var arr = [1,2,3];//把数组的值分别赋给下面的变量；
+    var a = arr[0];
+    var b = arr[1];
+    var c = arr[2];
+    console.log(a);//a的值为1
+    console.log(b);//b的值为2
+    console.log(c);//c的值为3
+</script>
+
+<!-- -----数组的解构赋值----- -->
+<!-- 变量的解构赋值 -->
+<script type="text/javascript">
+    var [a,b,c] = [1,2,3]; //把数组的值分别赋给下面的变量；
+    console.log(a);//a的值为1
+    console.log(b);//b的值为2
+    console.log(c);//c的值为3
+</script>
+<script type="text/javascript">
+// 赋值不成功，变量的值为undefined
+    var [a,b,c] = [1,2];
+    console.log(a);//结果：a的值为1
+    console.log(b);//结果：b的值为2
+    console.log(c);//结果：c的值为undefined
+</script>
+<script type="text/javascript">
+  // 允许设定默认值
+  var [a,b,c=3] = [1,2];
+    console.log(a);//结果:a的值为1
+    console.log(b);//结果:b的值为2
+    console.log(c);//结果:c的值为3
+
+    var [x,y,z=3] =[1,2,4];
+    console.log(x);//结果:x的值为1
+    console.log(y);//结果:y的值为2
+    console.log(z);//结果:z的值为4
+</script>
+
+<!-- ----对象的解构赋值 ---- -->
+<script type="text/javascript">
+  var { a,b,c} = {"a":1,"b":2,"c":3};
+  console.log(a);//结果：a的值为1
+  console.log(b);//结果：b的值为2
+  console.log(c);//结果：c的值为3
+</script>
+<script type="text/javascript">
+  // 如果变量找不到与其名字相同的属性，就会赋值不成功，如下面的例子：
+  var { a } = {"b":2};
+  console.log(a);//结果：a的值为undefined
+
+    var { b:a,} = {"b":2};
+    console.log(a); //结果：a的值为2
+</script>
+<script type="text/javascript">
+    // 1、对象解构赋值也可以嵌套
+    var {a:{b}} = {"a":{"b":1}};
+    console.log(b);  //结果：b的值为默认值2
+</script>
+
+<!-- -----字符串的解构赋值----- -->
+<script type="text/javascript">
+var [a,b,c,d,e,f] = "我就是前端君";
+  console.log(a);//我
+    console.log(b);//就
+    console.log(c);//是
+    console.log(d);//前
+    console.log(e);//端
+    console.log(f);//君
+</script>
+
+<!-- ---------解构赋值的用途---------- -->
+<!-- 一、交换变量的值 -->
+<script type="text/javascript">
+  // 传统做法最常用的是引入第三个变量来临时存放，如下：
+  var x = 1;
+  var y = 2;
+  var z = x; //第三个变量临时存放x的值
+  x = y;     //把y的值赋给x；
+  y = z;     //把z的值赋值给y；
+  console.log(x); //结果：x为2
+  console.log(y); //结果：y为1
+// 但是有了解构赋值，想交换两个变量的值就简单多了。看下面的代码：
+  var x = 1;
+  var y = 2;
+  [x,y] = [y,x];
+</script>
+<!-- 二、提取函数返回的多个值 -->
+<script type="text/javascript">
+  //  函数只能返回一个值，我们可以将多个值装在一个数组或者对象中，再用解构赋值快速提取其中的值。
+  function demo(){
+      return {"name":"张三","age":21}
+  }
+  var {name,age} = demo();
+  console.log(name); //张三
+  console.log(age);  //21
+</script>
+<!-- 三、定义函数参数 -->
+<script type="text/javascript">
+     function demo({a,b,c}){
+        console.log("姓名："+ a);
+        console.log("身高："+ b);
+        console.log("体重："+ c);
+    }
+    demo({a:"张三",b:"1.8m",c:"50kg",d:"8000"});
+</script>
+  <!-- 四、函数参数的默认值 -->
+<script type="text/javascript">
+   // 传统的参数默认值的实现方式是，先判断该参数是否为undefined，如果是代表没传，需要手动给它赋一个值，如：
+   function demo(a){
+      var name;
+      if(a === undefined){//判断参数书否是否传值
+        name= "张三"; //没传，赋默认值
+     }else{
+        name= a;
+      }
+      console.log(name);  //张三
+    }
+    demo();
+    // 但是有了解构赋值，一切都变得简单很多！看下面的代码：
+    function demo2({name="李四"}){
+      console.log("姓名："+name);   //姓名:李四
+    }
+    demo2({});
+</script>
+
+<!-- -------字符串的扩展------ -->
+<!-- 1.新特性: 模板字符串 -->
+<script type="text/javascript">
+  // 模板字符串”是字符串的一个新特性，传统的字符串实现拼接的时候，要将变量插入字符串中，语法是这样的，
+    let name = "Jacky";
+    let occupation = "doctor";
+    //传统字符串拼接
+    let str = "He is "+ name +",he is a "+ occupation;
+    console.log(str);
+    // 上面最后一句代码实现将变量name和occupation插入字符串中，这种写法没什么不好，只是数据一旦多起来就很繁琐，你会看到N多个加号“+”，N多个引号' “” '，ES6给了我们另一种更简捷的写法，来看一下下面这段小代码：
+    let name2= "Jacky";
+    let occupation2= "doctor";
+    let str2 = `He is ${name},he is a ${occupation2}`;
+    console.log(str2);
+
+    //注意的地方：
+    //1、可以定义多行字符串
+    let str00 = `write once ,
+               run anywhere`;
+    console.log(str00);
+    //2、${ }中可以放任意的javascript表达式
+    //1) ${ }中可以是运算表达式
+    var a = 1;
+    var b = 2;
+    var str01 = `the result is ${a+b}`;
+    console.log(str01);     //the result is 3
+    // 2) ${ }中可以是对象的属性
+    var obj = {"a":1,"b":2};
+    var str02 = `the result is ${obj.a+obj.b}`;
+    console.log(str02);     //the result is 3
+    // 3) ${ }中可以是函数的调用
+    function fn(){
+      return 3;
+    }
+    var str03 = `the result is ${ fn() }`;
+    console.log(str03);    //the result is 3
+</script>
+
+<!-- 2.新特性:标签模板 -->
+<script type="text/javascript">
+      /*标签模板，这个名词不是很好理解，什么是标签模板？不懂没关系，前端君的任务就是负责把知识讲得通俗易懂，这里的模板指的是上面讲的字符串模板，用反引号定义的字符串；
+      而标签，则指的是一个函数，一个专门处理模板字符串的函数。还是不完全理解？没事，继续往下看。*/
+      var sName = "张三";
+      var sHeight  = 1.8;
+      tagFn`他叫${sName},身高${sHeight}米。`;
+      //标签+模板字符串
+      function tagFn(arr,v1,v2){
+          console.log(arr);  //结果：[ "他叫","，身高","米。" ]
+          console.log(v1);   //张三
+          console.log(v2);   //1.8
+      }
+      /*你是否看出规律了：第一个参数arr是数组类型，它是内容是模板字符串中除了${ }以外的其他字符，按顺序组成了数组的内容，所以arr的值是[ "他叫",  "，身高"  ,  "米。" ]；第2,3个参数则是模板字符串中对应次序的变量name和height的值。*/
+</script>
+
+<!-- 3.新特性：repeat函数 -->
+<!-- repeat( )函数：将目标字符串重复N次，返回一个新的字符串，不影响目标字符串。 -->
+<script type="text/javascript">
+  var tName1 = '前端君';    //目标字符串
+  var tName2 = tName1.repeat(3);
+  //变量name1被重复三次；
+  console.log(tName1);        //前端君
+  console.log(tName2);        //前端君前端君前端君
+</script>
+
+<!-- 4.新特性：includes函数 -->
+<!-- includes( )函数：判断字符串中是否含有指定的子字符串，返回true表示含有和false表示未含有。
+第二个参数选填，表示开始搜索的位置。 -->
+<script type="text/javascript">
+  var inName = "前端君";
+  inName.includes('君');
+  console.log(inName.includes('君'));       //true, 含有
+  console.log(inName.includes('haha'));     //false, 不含有
+
+ //注意，第二个参数为1，表示从第2个字符“端“开始搜索，第一个字符”前“的位置是0；
+  inName.includes('前',1);                  //false, 从第2个字符开始搜索, 不含有
+  console.log(inName.includes('前',1));
+
+/*    传统的做法我们可以借助indexOf( )函数来实现，如果含有指定的字符串，indexOf( )函数就会子字符串首次出现的位置，不含有，则返回-1。我们通过返回值是否为-1来判断字符串中是否含有指定的子字符串，但是，我们现在可以用includes( )函数代替indexOf( )函数，因为它的返回值更直观（true或false），况且我们并不关心子字符串出现的位置。*/
+</script>
+
+<!-- 5.新特性：startsWith函数 -->
+<!-- startsWith( )函数：判断指定的子字符串是否出现在目标字符串的开头位置，第二个参数选填，表示开始搜索的位置。 -->
+<script type="text/javascript">
+  var statrName = "前端君";
+  statrName.startsWith('前');
+  console.log(statrName.startsWith('前'));     //true,  出现在开头位置
+  console.log(statrName.startsWith('端'));     //false, 不是在开头位置
+  console.log(statrName.startsWith('端',1));  //true，从第2个字符开始
+
+  // 我们如果判断字符串是否以某个子字符串开头，就可以直接使用startsWith( )函数即可，同样，第二个参数为1表示从第2个字符开始搜索。若要从第一个字符开始搜索，参数应该为0或者为空（默认从第一个字符开始搜索）。
+</script>
+
+<!-- 6.新特性：endsWith函数 -->
+<script type="text/javascript">
+  var endName = "我就是前端君";
+  endName.endsWith('君');          //true，在尾部位置
+  endName.endsWith('君',6);        //true，针对前6个字符
+  endName.endsWith('君',5);        //false，只针对前5个字符
+</script>
+
+<!-- 7.新特性：codePointAt函数 -->
+<script type="text/javascript">
+  var cStr1 = "前端";
+  var cStr2 = "𠮷";             //"𠮷"是一个4字节的字符
+  console.log(cStr1.length); //2
+  console.log(cStr2.length); //2
+  // charAt() 方法可返回指定位置的字符
+  cStr1.charAt(0); //前
+  cStr1.charAt(1); //端
+
+  cStr2.charAt(0); // �
+  cStr2.charAt(1); // �
+  console.log(cStr2.charAt(0));
+
+  var cStr = "𠮷";
+  cStr.codePointAt();
+  console.log(cStr.codePointAt());    //134071
+ // 对于这个长度length为2字符："𠮷"，codePointAt( )方法可以正确地识别出它是个4个字节的字符，并且能正确地返回它的码点的十进制数：134071，这个数字抓换成16进制就是20bb7，对应的Unicode编码则是\u20bb7。（什么是Unicode编码？稍后讲解）。
+</script>
+
+<!-- 8. 新特性：String.fromCodePoint函数-->
+<!-- String.fromCodePoint( )函数：函数的参数是一个字符对应的码点，返回的结果就是对应的字符，哪怕这个字符是一个4字节的字符，也能正确实现。 -->
+<script type="text/javascript">
+  String.fromCodePoint(134071);
+  console.log(String.fromCodePoint(134071));
+</script>
+
+<!-- 9.新特性：String.raw函数 -->
+<script type="text/javascript">
+  // String.raw( )；看函数名raw是未加工的的意思，正如这个函数的作用一样：返回字符串最原始的样貌，即使字符串中含有转义符，它都视而不见，直接输出。
+   // 未经String.raw( )处理的字符串：
+   console.log(`hello\nword`);
+   //输出：hello
+   //         world
+   //    \n会被识别为换行符，实现换行效果，而经过String.raw( )的同一个字符串的结果是：
+      console.log(String.raw`hello\nwolrd`);     //hello\nwolrd
+</script>
+
+
+<!-- -----------ES6为数值做了哪些扩展--------- -->
+<script type="text/javascript">
+    // 传统的写法
+    // isNaN() 函数用于检查其参数是否是非数字值,IsNaN的全称是： is not a number。
+     isNaN(2.5);  //结果：false
+     window.isNaN(2.5);//结果：false
+     console.log(isNaN(2.5));
+     console.log(window.isNaN(2.5));
+     /* 但是在ES6的标准中，isNaN方法被移植到了Number对象上，也就是原本属于全局对象window下的函数，现在属于Number对象上了，同样被处理的函数还有isFinite函数，parseInt函数，parseFloat函数。
+     */
+
+    // 1.新特性：Number.isNaN函数
+    //被移植后的函数使用方式是这样的：
+     Number.isNaN(2.5);  //结果：false
+    /*传统的isNaN函数会把非数值的参数转化成数值再进行判断，而Number. isNaN只对数值类型有效，非数值类型的参数一律返回false。看文字解释不过瘾，咱们看案例。
+    */
+    isNaN('abc');         //结果：true     //'abc'无法转为一个数值，返回true
+    Number.isNaN('abc'); //结果：false   //'abc'是字符串，Number.isNaN不做类型转换，直接返回false
+    console.log(isNaN('abc'));
+    console.log(Number.isNaN('abc'));
+
+    // 2.新特性：Number.isFinite函数
+    //Number.isFinite函数：用来检查一个数值是否非无穷。注意是判断非无穷，不是判断无穷，这里跟isNaN函数一样，有点绕。
+    Number.isFinite(1);       //结果：true，数值1是有穷，即非无穷
+    console.log(Number.isFinite(1));
+    Number.isFinite(Infinity);  //结果：false，Infinity表示无穷大的特殊值
+    console.log(isFinite(Infinity));
+    // Infinity是window对象下的一个常量，表示一个无穷数。所以第二行代码会返回false。
+
+    // 3.新特性：Number.parseInt函数
+    //parseInt函数：解析一个字符串，返回一个整数。parseInt函数同样是从window对象下移植到Number对象下，但是它的作用没有任何变化。
+     //传统用法：
+    parseInt('12.3abc'); //结果：返回数值12
+    Number.parseInt('12.3abc'); //结果：返回数值12
+
+    // 4.新特性：Number.parseFloat函数
+    // parseFloat函数：解析一个字符串，并返回一个浮点数。跟parseInt一样，被移植到Number对象下，作用保持不变。
+    parseFloat('12.3abc');         //结果：返回数值12.3
+    Number.parseFloat('12.3abc');  //结果：返回数值12.3
+
+    // 5.新特性：Number.isInteger函数
+    // Number.isInteger函数：用来判断是否是整数。
+    Number.isInteger(3.2);   //结果：false
+    Number.isInteger(3);     //结果：true
+    // 在javascript内部对整数和浮点数采用一样的存储方式，因此小数点后如果都是0的浮点数，都会被认为是整数。
+    Number.isInteger(3.0);     //结果：true
+    Number.isInteger(3.00);     //结果：true
+
+    // 极小常量
+    // Number.EPSILON常量：定义一个极小的数值。
+    console.log(Number.EPSILON);    //2.220446049250313e-16
+
+    //安全整数
+    //   ES6为我们引入了安全整数的概念。什么？整数还有安全和不安全的说法？原来JavaScript能够准确表示的整数范围在-2^53到2^53之间，超过这个范围，无法精确表示这个值。故称之为不安全。
+    Number.isSafeInteger(Number.MAX_SAFE_INTEGER);
+    Number.isSafeInteger(Number.MIN_SAFE_INTEGER);
+    //结果：true
+    Number.isSafeInteger(Number.MAX_SAFE_INTEGER+1);
+    //结果：false
+    //
+    Math.random();
+    console.log(Math.random());
+
+    // 6.新特性：Math.trunc函数
+    // Math.trunc函数：用于去除一个数的小数部分，返回整数部分。
+    Math.trunc(3);    //3
+    Math.trunc(3.1);  //3
+
+    //7.新特性：Math.sign函数
+    //Math.sign函数：用来判断一个数到底是正数、负数、还是零。
+    Math.sign(3);      //1
+    Math.sign(-3);     //-1
+    Math.sign(0);      //0
+    Math.sign('abc');   //NaN
+/*返回的结果类型有点多，我们分别来讲解一下，参数如果是正数，结果返回1；如果是负数，结果返回-1；如果是0，结果返回0；如果是一个非数值类型的参数，结果返回：NaN。*/
+
+  //8.新特性：Math.cbrt函数
+    //Math.cbrt函数：用于计算一个数的立方根。
+    Math.cbrt(8);
+</script>
+
+<!-- -----------ES6为数组做了哪些扩展？--------- -->
+<a href="javascript:;"></a>
+<script>
+    //1.Array.of()函数
+    //函数作用：将一组值，转换成数组。
+    Array.of(1,2,3,4);
+    console.log(Array.of(1,2,3,4));
+
+    //2.Array.from( )函数
+    //函数作用：可以将类似数组的对象或者可遍历的对象转换成真正的数组。
+    let ele = document.getElementsByTagName('a');
+    ele instanceof Array;  //结果：false，不是数组
+    ele instanceof Object; //结果:true，是对象
+    Array.from(ele) instanceof Array;    //结果：true，是数组
+    console.log( Array.from(ele) instanceof Array);
+    //Array.from函数其中一个用处就是将字符串转换成数组。看下面的案例：
+    let strFrom = 'hello';
+    Array.from(strFrom);  //结果：["h", "e", "l", "l", "o"]
+    console.log(Array.from(strFrom));
+
+    //3.find( )函数
+    //函数作用：找出数组中符合条件的第一个元素。
+    let arrFind = [1,2,3,4,5,6];
+    arrFind.find(function(value){
+        return value > 2;      //3
+
+        return value > 7;       //undefined
+    });
+
+    //4.findIndex( )函数
+    //函数作用：返回符合条件的第一个数组成员的位置。
+    let arrFindIndex = [7,8,9,10];
+    arrFindIndex.findIndex(function (value) {
+       return value > 8;         //2
+    });
+
+    //5.fill( )函数
+    //函数作用：用指定的值，填充到数组。
+    let arrFill = [1,2,3];
+    arrFill.fill(4);       //[4,4,4]
+
+    let arrFill2 = [1,2,3];
+    arrFill2.fill(4,1,3);       //[1,4,4]
+    //上面的代码中第2个参数和第3个参数的意思是：从位置1的元素开始填充数字4，截止到位置3之前，
+    //所以是位置1和位置2的元素被数字4填充了，得到的结果：[1,4,4]。
+
+    //6.entries( )函数
+    //函数作用：对数组的键值对进行遍历，返回一个遍历器，可以用for..of对其进行遍历。
+    for(let [i,v] of ['a','b'].entries()){
+        console.log(i,v);
+       // 0 "a"
+       // 1 "b"
+    }
+    //7.keys( )函数
+    // 函数作用：对数组的索引键进行遍历，返回一个遍历器。
+    for(let index of ['a', 'b'].keys())
+    {
+        console.log(index);
+        //0
+        //1
+    }
+    //8.values( )函数
+    //作用：对数组的元素进行遍历，返回一个遍历器。
+    /*for(let value of ['a', 'b'].values())
+    {
+        console.log(value);
+        //a
+        //b
+    }*/
+
+    //9.数组推导
+    //数组推导：用简洁的写法，直接通过现有的数组生成新数组。
+    //传统写法:
+    var arr1 = [1,2,3,4];
+    var arr2 = [];
+    for(let i=0;i<arr1.length;i++){
+        //每个元素乘以2后，push到数组arr2
+        arr2.push(arr[i]*2);
+    }
+    console.log(arr2);         //结果：[2,4,6,8]
+
+    //占不支持
+    /*var arr1 = [1, 2, 3, 4];
+    var arr2 = [for(i of arr1) i * 2];
+    console.log(arr2);
+    //结果： [ 2, 4, 6, 8 ]*/
+    //占不支持
+    /*var array1 = [1, 2, 3, 4];
+    var array2 = [for(i of array1)  if(i>3) i];
+    console.log(array2);
+    //结果： [4]*/
+    //测试使用map方法：数组map()方法创建一个新的数组使用调用此数组中的每个元素上所提供的函数的结果。
+    var a1 = [1,2,3];
+    var a2 = a1.map(_ => _ * 2);
+    console.log(a2);
+</script>
+
+<!--------------ES6为对象做了哪些扩展？-------------->
+<script>
+    //1.
+    //对象的传统表示法
+    let person = {
+        "name":"小黄",
+        "say":function () {
+            alert("你好");
+        }
+    }
+    //ES6中的简洁写法
+    var eName = "jack";
+    var age = 12;
+
+    //传统的属性写法
+    var ePerson = {
+        "name":name,
+        "age":age
+    };
+    console.log(ePerson);   //{name: "Jacky", age: 12}
+    //es6的属性写法
+    var ePerson2={name,age};
+    console.log(ePerson2);  //{name: "Jacky", age: 12}
+
+    //对象的属性可以这样简写，那么对象的方法表示呢？
+    var fn1 = {
+        say:function () {
+            console.log('这是传统的表示法');
+        }
+    };
+    //es6的表示法
+    var fn2 = {
+        say(){
+            console.log('这是ES6的表示法');
+        }
+    };
+
+    //2.Object.is( )函数
+    //函数的作用：比较两个值是否严格相等，或者说全等。
+    //严格相等和抽象相等
+    var s1 = '12';
+    var s2 = 12;
+    var s3 = 12;
+    //抽象相等
+    s1 == s2;
+    //结果：true
+    //严格相等
+    s1 == s2;
+    //结果：false
+
+    Object.is(s1,s2);     //false
+    Object.is(s2,s3);     //true
+
+    //Object.assign()函数
+    //函数作用：将源对象的属性赋值到目标对象上。
+    //这个充当目标对象
+    let target = {"a":1};
+    //这个充当源对象
+    let origin = {"b":2,"c":3};
+    Object.assign(target,origin);
+    console.log(target);         //{a: 1, b: 2, c: 3}
+
+    //这个充当目标对象
+    let target1 = {"a":1};
+    //这个充当源对象
+    let target2 = {"a":2};
+    //这个充当源对象
+    let target3 = {"a":3};
+    Object.assign(target1,target2,target3);
+    console.log(target1);  // {a: 3}
+/*----------------------*/
+    //3.Object.getPrototypeOf( )函数
+    //函数作用：获取一个对象的prototype属性。
+
+    //自定义一个People类（函数）
+    function People() {
+
+    }
+    //函数都有一个预属性prototype对象
+    People.prototype = {
+        //给prototyped对象添加一个say方法
+        say(){
+            console.log('hello');
+        }
+    }
+    //实例化People对象，赋值个变量allen
+    let allen = new People();
+    //调用类的say方法
+    allen.say();  //hello
+    //获取allen对象的prototype属性
+    Object.getPrototypeOf(allen);  //{say:function(){.....}}
+
+    //Object.setPrototypeOf()函数
+    //函数作用：设置一个对象的prototype属性。
+    Object.setPrototypeOf(
+        allen,
+        {
+            say(){
+                console.log('hi');
+            }
+        }
+    );
+    allen.say();       //hi
+//-------------------------------
+    //4.javascript的面向对象
+    //构造函数模拟创建一个Dog类
+    function Dog(name) {
+        this.name = name;
+    }
+    //把一些属性和方法，定义在prototype对象上
+    Dog.prototype = {
+        "type":"动物",
+        "say":function () {
+            console.log("名字叫"+this.name);
+        }
+    };
+    //实例化
+    var dog = new Dog("旺财");
+    dog.say();     //名字叫旺财
+</script>
+
+<!----------ES6为函数做了哪些扩展？---------------->
+<script>
+    //1.参数的默认值
+    //给函数的参数指定默认值
+    /*面是传统的实现方式，通过或运算实现，原理：如果运算符 || 左侧为true，直接返回左侧的值，否则返回右侧的值；
+    在man函数内，如果参数n没有传参，那么变量name得到的值就是“Mike”，如果传参了，变量name的值就为参数n的值。*/
+    function man(n,a) {
+        var name = n || 'Mike';
+        var age = a || 18;
+        console.log(name,age);
+    }
+    man();     //Mike 18
+    //ES6写法
+    function man2(name = 'Mike',age = 18) {
+        console.log(name,age);
+    }
+    man2();    //Mike 18
+    man2('Jack',20);  //Jack 20
+
+    //设定默认值的参数一定要放在最后。
+    //错误写法
+    function man3(age = 25,name){
+        console.log(name,age);
+    }
+    //正确写法
+    function man4(name,age = 25){
+        console.log(name,age);
+    }
+
+    //只有当传入的参数为undefined，才会触发默认值赋值。
+    // 否则，哪怕你传的参数值为0，false，null都不会触发默认值赋值，
+    function man5(age = 12) {
+        console.log(age);
+    }
+    man5();    //12
+    man5(undefined); //12
+    man5(0); //0
+    man5(null);  //null
+
+    //2.rest参数
+    //rest参数，这是一个新的概念，rest的中文意思是：剩下的部分。
+    // 如果用在函数上，就代表是获取函数剩下部分的参数。
+    function sumFn(result,...values) {
+        console.log(values); //[1,2,3,4]
+        values.forEach(function (v,i) {
+            result +=v;
+        });
+        console.log(result);   //10
+    }
+    //存储求和结果的变量res
+    var res = 0;
+    // 调用sum函数
+    sumFn(res,1,2,3,4);
+    //上面：在实参中，除了第一个参数以外，剩余的参数都会被...values获取到。
+    //rest参数必须是函数的最后一个参数，后面不能再跟其他参数，
+
+    //3.扩展运算符
+    //... : 它一般结合数组使用，把数组的元素用逗号分隔开来，组成一个序列。
+    function sums(a,b) {
+        return a+b;
+    }
+    let arrs = [2,3];
+    //用扩展运算符将数组[2,3]转换成2,3
+    sums(...arrs);      //5
+
+    //4.箭头函数
+    //箭头函数，这又是一个新概念，ES6给我们介绍一种全新的定义函数的方式，就是用箭头符号（=>），故得名为箭头函数。
+    //传统写法
+    var sun = function (a) {
+        return a;
+    }
+    //箭头函数写法
+    var sun2 = a => a;
+    //上面：第一个a代表是传进去的参数，箭头=>后面的a表示函数体；
+
+    //假如我们给函数传入2个参数，然后进行相加运算，
+    var sun3 = (a,b)=>{ return a+b}
+    sun3(1,2);     //3
+
+    // 设我们现在要对一个数组 [ 1,2,3,4 ] 里面的数求和，
+    // 我们分别用传统的方式和箭头函数都实现一次，
+    //传统:
+    var sum01 = 0;
+    var arr01 =[1,2,3,4];
+    arr01.forEach(function (v) {
+        sum01 += v;
+    });
+    //箭头
+    var sum02 = 0;
+    var arr02 =[1,2,3,4];
+    arr02.forEach(v => sum02+=v);
+
+    //*箭头函数中的this指向的是定义时的this，而不是执行时的this。*
+    //定义一个对象
+    var obj = {
+        y1:100, //属性y
+        show(){
+            //延迟500毫秒，输出x的值
+            setTimeout(
+                //匿名函数
+                function(){
+                    console.log(this.y1);      //this指向window对象
+                    },
+                500
+            );
+        }
+    };
+    obj.show();//打印结果：undefined
+
+    //箭头：
+    //定义一个对象
+    var obj2 = {
+        x:100,//属性x
+        show(){
+            //延迟500毫秒，输出x的值
+            setTimeout(
+                //不同处：箭头函数
+                () => { console.log(this.x)}, //this是指的obj，
+            500
+        );
+        }
+    };
+    obj2.show();//打印结果：100
+</script>
+
+<!---------JavaScript有了一种全新的数据类型：Symbol--------->
+<script>
+//    JavaScript有6中数据类型，分别是：
+//    String 字符串类型
+//    Number 数字类型
+//    Object 对象类型
+//    Boolean 布尔值类型
+//    Null  空值
+//    Undefined 未定义
+
+    //Symbol
+    //定义一个symbol类型的变量
+    let sm = Symbol();
+    console.log(sm);    //Symbol()
+    console.log(typeof sm);  //symbol
+
+    //即使参数一样，描述一样，得到的两个值也是不相等的
+    let sm1 = Symbol('sm');
+    let sm2 = Symbol('sm');
+    sm1 === sm2 //结果：false
+
+    //Symbol是为了解决对象属性名冲突的问题，那么我们就结合对象，来学习：
+    let namex = Symbol();
+    let personx = {
+      [namex]:"张三"
+    };
+    console.log(personx[namex]);  //张三
+    console.log(personx.namex);  //undefined
+</script>
+
+<!--ES6 Proxy代理 和 去银行存款有什么关系？-->
+<script>
+    //1.Proxy的实现
+    //定义一个对象ren
+    var ren = {"name":"小明"};
+    //创建一个代理对象pro，代理ren的读写操作
+    var rens = new Proxy(ren,{
+       get:function (target,property){
+           return "小红"
+       }
+    });
+    rens.name;     //小红
+    console.log(rens.name);
+
+    //2.set方法 它用于拦截对对象的写操作。
+    //定义一个对象，含有RMB和dollar属性值
+    var bankAaccount ={"RMB":1000,"dollar":0};
+    //创建一个Proxy代理实例
+    var banker = new Proxy(bankAaccount,{
+        //编写get处理程序
+        get:function (target,property) {
+            //判断余额是否>0
+            if(target[property]>0){
+                //有余额，就返回余额值
+                return target[property];
+            }else{
+                //没钱了
+                return "余额不足";
+            }
+        },
+        //编写set处理程序
+        set:function (target,property,value) {
+            //存入的数据必须是数字是一个数字类型
+            if(!Number.isInteger(value)){
+                return "请设置正确的数字";
+            }
+            //修改属性的值
+            target[property] = value;
+        }
+    })
+    banker.RMB;     //100
+    banker.dollar;  //余额不足
+
+    //修改dollar属性，值是字符串类型
+    banker.dollar = "五百";
+    banker.dollar; //余额不足
+
+    //修改dollar属性的值，值是数字类型
+    banker.dollar = 500;
+    banker.dollar;    //500
+
+    //3.ownKeys( )方法
+    //ownKeys拦截操作，拦截过滤Object.ownKeys()对对象的属性遍历。
+    //定义一个对象person，有三个属性
+    let peo = {"name":"小小","age":20,"height":1.8};
+    //创建一个代理对象
+    let proxy = new Proxy(person,{
+        //ownKeys过滤对对象的属性遍历
+        ownKeys:function (target) {
+            return ["name","age"]
+        }
+    });
+
+    Object.keys(peo);   // ["name", "age","height"]
+
+    Object.keys(proxy); //["name", "age"]
+
+    //4.has( )方法
+    //has( )方法用于是判断是否含有指定的键值对，有，就返回true。否则返回false。
+    var pers ={"name":"小轩","age":18};
+    var proxys = new Proxy(pers,{
+        has:function (target,prop) {
+            if(target[prop] === undefined){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    });
+    "name" in proxys;       //true
+    "height" in proxys;     //false
+
+    //5.apply( )方法
+   /* 除了对象类型的变量可以被代理，函数也可以被代理。
+    如果被代理的变量是一个函数，那么还会支持一个拦截程序：apply调用。*/
+   let fnx = function () {
+     alert('我是前端君');
+   };
+   //创建一个代理实例，代理函数fn
+    let proxyz = new Proxy(fnx,{
+       apply:function () {
+           console.log('我是微博君');
+       }
+    });
+    proxyz();  //我是微博君
+
+    //6.Proxy.revocable()取消代理
+    //还有一个revoke属性，它是一个方法，用于取消代理。
+    //定义一个对象
+    let pero = {"name":"小西"};
+    //定义一个代理处理程序
+    let handle = {
+        get : function (target,prop) {
+            return "小北";
+        }
+    };
+    //使用Proxy.revocable()进行代理
+    let objext = Proxy.revocable(pero,handle);
+    objext.proxy.name;  //小北
+
+    //调用返回对象object的revoke方法，取消代理
+    objext.revoke();
+
+    //objext.proxy.name;     //报错，代理被取消
+
+</script>
+
+<!---------易学又实用的新特性：for...of--------->
+<script>
+    //for...of 一种用于遍历数据结构的方法。
+    //它可遍历的对象包括数组，对象，字符串，set和map结构等具有iterator 接口的数据结构。
+    //方式一:
+    var ar = [1,2,3,4,5];
+    for(let i = 0; i<ar.length;i++){
+     //........
+    }
+    //方式二:
+    var ar2 = [1,2,3,4,5];
+    ar2.forEach(function (value,index) {
+        //.....
+    });
+
+    //for...of
+    /* 我们列举一下for...of的优势：
+    写法比for循环简洁很多；
+    可以用break来终止整个循环，或者continute来跳出当前循环，继续后面的循环；
+    结合keys( )获取到循环的索引，并且是数字类型，而不是字符串类型。*/
+    var ar3 = [1,2,3,4,5];
+    for(let value of ar3){
+        console.log(value);  //1,2,3,4,5
+    }
+    for(let index of ar3.keys()){
+        console.log(index); //0,1,2,3,4
+    }
+
+//    我们分别来展示一下上述的几个优点：
+    //循环可以终止：
+    var arrX1 = [1,2,3,4,5];
+    for(let value of arrX1){
+        if(value==3){
+            //终止整个循环
+            break;
+        }
+        console.log(value); //打印结果：1 2
+    }
+    //可跳过当前循环
+    var arrX2 = [1,2,3,4,5];
+    for(let value of arrX2){
+        if(value==3){
+            //终止整个循环
+            continue;
+        }
+        console.log(value); //打印结果：1 2 4 5
+    }
+   // 得到数字类型的索引
+    var rr = [1,2,3,4,5];
+    for(let index of rr.keys()){
+        console.log(index); //0 1 2 3 4
+    }
+    //遍历字符串
+    let word = "我是前端君";
+    for(let w of word){
+        console.log(w);   //我 是 前 端 君
+    }
+
+    //遍历DOM List
+    //for...of支持数组的遍历,例如DOM List
+
+    let pList = document.getElementsByTagName('p');
+    for(let p of pList){
+        console.log(p);
+        // <p>1</p>
+        // <p>2</p>
+        // <p>3</p>
+    }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

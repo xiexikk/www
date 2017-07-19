@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+/*分类导航*/
+.mail01{ width:980px; margin:0 auto;}
+.mail01 .cur-position{ width:980px; height:24px; margin:0 auto; padding-top:14px; color:#555;}
+.mail01 .cur-position a{ margin:0 5px; }
+.mail01 .cur-position a:hover{ text-decoration:underline;}
+.mail01 .type{ width:980px; height:auto;padding-left:2px; margin:0 auto; margin-top:14px; overflow:hidden;}
+.mail01 .type h2{ width:80px; height:20px; line-height:20px; font-weight:normal; padding-right:10px;
+ border-right:1px solid #EBECEE; margin:7px 4px 0 0; float:left;_font-size:16px;}
+.mail01 .type .menu{ height:25px; font-size:14px; float:left; padding:7px; color:#555;}
+.mail01 .type .menu a{ float:left;height:20px;line-height:20px; text-align:center; padding:0 12px 0 11px;}
+.mail01 .type .menu span{ float:left; width:20px; height:20px; margin-right:5px;}
+.mail01 .type .menu .m1{ background:url(../imges/list_ico.gif) no-repeat 0 -34px;}
+.mail01 .type .menu .m2{ background:url(../imges/list_ico.gif) no-repeat -20px -34px;}
+.mail01 .type .menu .m3{ background:url(../imges/list_ico.gif) no-repeat -40px -34px;}
+.mail01 .type .menu .m4{ background:url(../imges/list_ico.gif) no-repeat -60px -34px;}
+.mail01 .type .menu .m5{ background:url(../imges/list_ico.gif) no-repeat -80px -34px;}
+.mail01 .type .menu .m6{ background:url(../imges/list_ico.gif) no-repeat -100px -34px;}
+/*商家内容*/
+.merchant{ width:980px; height:auto; overflow:hidden;margin:0 auto; margin-top:14px;padding-top:20px; background-color:#FFF;}
+.merchant .mer_logo{ width:190px; height:190px; float:left; margin-right:20px; }
+.merchant .mer_logo img{ max-width:100%; _width:190px; _height:190px;}
+.merchant .mer_infor{ width:460px; height:auto; overflow:hidden; float:left; line-height:32px; }
+.merchant .mer_infor h3{  font-size:22px; font-weight:normal; }
+.merchant .mer_infor h3 span{ font-size:12px; padding-left:2px;}
+.merchant .mer_infor a:hover{ text-decoration:underline; color:#F8517F;}
+.merchant .merchant_r{ float:right; width:280px; height:215px;}
+.merchant .merchant_r .mer_r_1{ height:37px;}
+.merchant .merchant_r .mr20{ margin-right:20px;}
+.merchant .merchant_r .yes{ background:url(../imges/yes.png) no-repeat; padding-left:25px; margin-right:10px;}
+.merchant .merchant_r .free_bt{ width:200px; height:40px; line-height:40px; text-align:center; display:block; background-color:#FF809E; margin-top:20px;
+font-size:18px; margin-left:20px;}
+.merchant .merchant_r .free_bt a{ display:block; color:#FFF; }
+.merchant .merchant_r .free_bt:hover{ background-color:#E4355F;}
+
+/*banner内容*/
+.banner-wrap{ width:980px; height:300px; margin:auto;overflow:hidden; margin-top:14px;}
+.banner{ width:980px; height:300px; position:relative;}
+.banner ul{ position:relative; width:100%; height:100%; overflow:hidden;}
+.banner ul li{ position:absolute; left:0; top:0;}
+.banner ul .current{ z-index:1;}
+.banner .left,.banner .right{ position:absolute; width:26px; height:52px; top:50%; margin-top:-26px; cursor:pointer; z-index:2; display:none;}
+.banner .left{ background:url(../imges/focus_btn.png) no-repeat -6px -84px;left:5px;}
+.banner .right{ background:url(../imges/focus_btn.png) no-repeat -46px -84px; margin-right:5px; right:5px;}
+.banner ol{ position:absolute; left:50%; bottom:15px; z-index:3; } 
+.banner ol li{ float:left; width:10px; height:10px; border-radius:50%; margin-right:10px; cursor:pointer; background-color:#FFF;}
+.banner ol li.current{ background-color:#F8517F;} 
+
+/*coupon优惠劵内容*/
+/*coupon左边*/
+.coupon_wrap{ width:980px; height:auto; margin:0 auto; overflow:hidden;  margin-top:14px;}
+.coupon{ width:530px; float:left; }
+.coupon h3{ font-size:25px; height:50px; line-height:50px; font-weight:normal; color:#000;}
+.coupon h3 span{ font-size:12px; color:#B9B9B9;}
+.coupon .pic_wrap{ width:528px; height:238px; border:1px solid #EEE; }
+.coupon .pic{ width:180px; height:180px; float:left; margin:20px 20px 0 20px; _display:inline;}
+.coupon img{ max-width:100%; _width:180px; _height:118px;}
+.coupon .bulletin{ width:300px; height:auto; float:left; margin-top:20px; line-height:40px; _float:left;}
+.coupon .bulletin h4{ font-size:20px; color:#616161; font-weight:normal;}
+.coupon .bulletin span{ width:200px; height:35px; line-height:35px; text-align:center; display:block; background-color:#00CBC3;
+ margin-top:10px;}
+.coupon .bulletin span:hover{ background-color:#1BABA5;}
+.coupon .bulletin span a{ color:#FFF; font-size:16px; display:block ;}
+/*appoint预约右边*/
+.appoint{ width:440px;  float:right; margin-bottom:14px;}
+.appoint h5{ font-size:18px; color:#616161; height:50px; line-height:50px; font-weight:normal;}
+.appoint h5 span{ font-size:12px; color:#B9B9B9;}
+.appoint .infor{ width:428px;border:1px solid #EEE; padding-left:10px; height:238px; }
+.appoint table{ width:428px; text-align:left;}
+.appoint table tr{ height:30px; color:#B9B9B9;}
+.appoint table tr td{ width:25%; font-size:14px;}
+
+/*show图片展示*/
+.show{ width:980px; height:auto; margin:0 auto; overflow:hidden; margin-bottom:24px;}
+.show .title{ width:100%; height:50px; line-height:50px;}
+.show .title h3{ font-size:25px; float:left; font-weight:normal;}
+.show .title h3 span{ font-size:12px; color:#B9B9B9; padding-top:6px;}
+.show .title span{ float:right; margin-right:30px;}
+.show .title span a:hover{ text-decoration:underline; }
+.show .pic{ width:980px; height:auto;}
+.show .pic ul{ overflow:hidden;}
+.show .pic ul li { float:left; width:232px; height:300px; margin-right:17px; _display:inline;}
+.show .pic ul li img{ padding:15px; border:1px solid #EEE;}
+.show .pic ul li .title{text-align:center; width:100%; height:36px; line-height:36px; _width:200px;}
+.show .pic ul li .title a{font-size:14px; color:#000;} 
+.show .pic ul li .price{ color:#FA9287; font-size:16px; padding-left:30px;}
+.show .pic ul li .price_m{ margin-left:20px; text-decoration:line-through; color:#A0A0A0;}

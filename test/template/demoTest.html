@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="jquery-1.11.2.min.js"></script>
+    <script src="template.js"></script>
+</head>
+<body>
+
+<!-- ------------t-login---------------- -->
+<div class="login"></div>
+<script type="text/html" id="t-login">
+    <div class="li acc acc-log">
+        <form>
+            <h3>用户登录</h3>
+            <input type="text" name="username" id="username" placeholder="请输入账号" autocomplete="on">
+            <input type="password" name="password" id="password" placeholder="请输入密码">
+            <button type="submit" class="btn-comm btn-log js-login">登录</button>
+            <button type="button" class="btn-comm btn-reg js-to-register">注册</button>
+            <p class="tip-center">提示</p>
+        </form>
+    </div>
+    <div class="mask"></div>
+</script>
+<script type="text/javascript">
+    $('.login').html(template('t-login'));
+</script>
+
+<!-- ------------t-register--------------- -->
+<script type="text/html" id="t-register">
+    <div class="li acc acc-reg">
+        <form>
+            <h3>用户注册</h3>
+            <p class="tip-acc">密码长度在6-20之间，只能包含字符、数字和下划线</p>
+            <input type="tel" name="phone" id="phone" placeholder="手机号">
+            <p class="ver-img">
+                <input name="varify" id="varify" type="text" placeholder="图片验证码">
+                <img src="" alt="图片验证码">
+            </p>
+            <p class="ver-code">
+                <input type="text" name="verifi_code" id="verifi_code" placeholder="短信验证码">
+                <a href="javascript:;" class="send-code" data-html="发送验证码" data-send="1">发送验证码</a>
+            </p>
+            <input type="password" name="password" id="password" placeholder="密码">
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="确认密码">
+            <p class="check">
+                <input type="checkbox" name="checkbox" id="checkbox" checked>
+                <label for="checkbox">我已阅读并接受<a class="color-main hover-tdu js-to-agreement" href="javascript:;">《921用户注册协议》</a></label>
+            </p>
+            <button type="submit" class="btn-comm btn-reg js-register">注册</button>
+            <p class="tip-center">提示</p>
+            <span class="span-back js-to-login">&lt;登录</span>
+        </form>
+    </div>
+    <div class="mask"></div>
+</script>
+<button type="button" id="open-Reg">点击打开注册框</button>
+<div class='register'></div>
+<script type="text/javascript">
+    $('#open-Reg').on('click',function(){
+        $('.register').html(template('t-register'));
+    });
+</script>
+
+<!-- -----------t_test----------- -->
+<script type="text/text" id="t_test">
+    <h1>{{title}}</h1>
+    <ul>
+        {{each list as v i}}
+            <li>索引 {{i+1}} : {{v}}</li>
+        {{/each}}
+    </ul>
+</script>
+<div id="test"></div>
+<script type="text/javascript">
+    var data = {
+        title:'each函数',
+        list:['UI','前端','java','php']
+    };
+    var html = template('t_test',data);
+    document.getElementById('test').innerHTML=html;
+</script>
+
+<!-- --------------t_content----------------- -->
+<script type="text/text" id="t_content">
+    <h1>{{title}}</h1>
+    <ul>
+        {{if list.length==0}}
+            <li>没有内容</li>
+            {{else}}
+            {{each list as v i}}
+                <li>{{v}}</li>
+            {{/each}}
+        {{/if}}
+    </ul>
+</script>
+<div id="content"></div>
+<script type="text/javascript">
+    var data = {
+        title:'if else函数',
+        list : ['内容01','内容02','内容03']
+    }
+    var html = template('t_content',data);
+    document.getElementById('content').innerHTML=html;
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

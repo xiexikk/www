@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* CSS Document */
+/* 分类导航 */
+.mail01{ width:980px; margin:0 auto;}
+.mail01 .cur-position{ width:980px; height:24px; margin:0 auto; padding-top:14px; color:#555;}
+.mail01 .cur-position a{ margin:0 5px; }
+.mail01 .cur-position a:hover{ text-decoration:underline;}
+.mail01 .type{ width:980px; height:auto;padding-left:2px; margin:0 auto; margin-top:14px; overflow:hidden;}
+.mail01 .type h2{ width:80px; height:20px; line-height:20px; font-weight:normal; padding-right:10px;
+ border-right:1px solid #EBECEE; margin:7px 4px 0 0; float:left;_font-size:16px;}
+.mail01 .type .menu{ height:25px; font-size:14px; float:left; padding:7px; color:#555;}
+.mail01 .type .menu a{ float:left;height:20px;line-height:20px; text-align:center; padding:0 12px 0 11px;}
+.mail01 .type .menu span{ float:left; width:20px; height:20px; margin-right:5px;}
+.mail01 .type .menu .m1{ background:url(../imges/list_ico.gif) no-repeat 0 -34px;}
+.mail01 .type .menu .m2{ background:url(../imges/list_ico.gif) no-repeat -20px -34px;}
+.mail01 .type .menu .m3{ background:url(../imges/list_ico.gif) no-repeat -40px -34px;}
+.mail01 .type .menu .m4{ background:url(../imges/list_ico.gif) no-repeat -60px -34px;}
+.mail01 .type .menu .m5{ background:url(../imges/list_ico.gif) no-repeat -80px -34px;}
+.mail01 .type .menu .m6{ background:url(../imges/list_ico.gif) no-repeat -100px -34px;}
+/* 地区选择 */
+.mail02 .select{ width:948px; margin:0 auto; border:1px solid #E0E0E0; padding:0 15px; margin-top:14px;}
+.mail02 .select ul li{ width:100%; height:38px; line-height:38px; border-bottom:1px solid #EBECEE;}
+.mail02 .select ul li h3{ float:left; font-size:14px; font-weight:normal;}
+.mail02 .select .exponent{ color:#939292; float:left; line-height:42px;}
+.mail02 .select .right{ float:right;}
+.mail02 .select .right:hover{ text-decoration:underline;}
+.mail02 .select ul li h5{ font-weight:normal; float:left; display:block; font-size:14px; margin-right:10px;}
+.mail02 .select ul li .pink,.select ul li .hui{ margin-left:20px;}
+.mail02 .select ul li .pink{ color:#FC71A6;}
+.mail02 .select ul li .pink:hover{ text-decoration:underline;}
+.mail02 .select ul li .hui:hover{ color:#FC71A6; text-decoration:underline;}
+/* 商家列表 左 */
+.list{ width:980px; height:auto; margin:0 auto; margin-top:14px; overflow:hidden;}
+.list_l{ border:1px solid #E0E0E0; width:742px; height:auto; overflow:hidden; padding-bottom:30px; float:left;
+ _display:inline;}
+.list_l ul li{ width:706px; padding:0 18px; float:left; _display:inline;}
+.list_l .container{ width:712px; height:auto; overflow:hidden; padding:18px 0 8px; border-bottom: 1px dashed #E0E0E0;}
+.list_l .container .pic{ padding:5px; border:1px solid #E0E0E0; width:140px; float:left;}
+.list_l .container .shop{ width:380px; height:130px; float:left; margin-left:18px;}
+.list_l .container .shop .name{ width:100%; height:20px; line-height:20px;}
+.list_l .container .shop .name .sname{ float:left; margin-right:9px; font-size:14px; color:#555555;}
+.list_l .container .shop .name .sname:hover{ color:#F8517F; text-decoration:underline;}
+.list_l .ico01,.list_l .ico02,.list_l .ico03{ width:27px; height:15px; float:left; margin-top:4px;
+ margin-left:6px;}
+.list_l .ico01{ background:url(../imges/list_ico.gif) no-repeat;}
+.list_l .ico02{ background:url(../imges/list_ico.gif) no-repeat -27px 0;}
+.list_l .ico03{ background:url(../imges/list_ico.gif) no-repeat 0 -15px;}
+.list_l .exponent{ padding-top:10px;}
+.list_l .exponent,.list_l .address,.list_l .phone,.list_l .adv{ height:16px; margin-bottom:8px;}
+.list_l .adv span{ display:block; float:left; width:17px; height:17px; 
+background:url(../imges/list_ico.gif) no-repeat -27px -15px; margin-right:2px;}
+.list_l .pink{ color:#FC71A6; margin-right:12px;}
+.list_l .list_l_r{ float:right; width:78px;padding-top:30px; line-height:24px;}
+.list_l .list_l_r span a{ line-height:24px;}
+.list_l .list_l_r span a:hover{ color:#F8517F; text-decoration:underline;}
+.list_l .page{line-height:24px; text-align:center;}
+/* 详情公告 右*/
+.list-r{ float:right; width:220px;}
+.list-r .pic{ width:220px; height:156px;}
+.list-r .news,.list-r .contact{ width:188px; height:auto; overflow:hidden; padding:15px 15px 10px; border:1px solid #E0E0E0; margin-top:14px;}
+.list-r .news h5{ font-weight:normal; font-size:14px; height:24px;}
+.list-r .news ul li{ width:100%; height:24px; line-height:24px; overflow:hidden;}
+.list-r .news ul li a:hover{ text-decoration:underline;}
+.list-r .contact_sale{ width:188px; height:33px; background:url(../imges/list_ico.gif) no-repeat 0 -54px; display:block;}
+.list-r .contact_sale:hover{ opacity:0.8;}
+.list-r .contact p{ line-height:24px; text-align:center; margin-top:8px; padding-bottom:3px;}
+.list-r .contact p a:hover{ text-decoration:underline;}

@@ -1,0 +1,69 @@
+/*主体内容区*/
+	/*adv广告*/
+  .adv{ width:980px; height:auto; margin:0 auto; display:block; padding-top:14px;}
+	/*主体01*/
+  .mail01{ width:980px; height:305px; margin:0 auto; margin-top:14px;}
+  .mail01 .mail01_l{ width:695px; height:305px; float:left; position:relative; overflow:hidden;}
+  .mail01 .mail01_l ul{ width:9999px; height:305px; position:absolute; }
+  .mail01 .mail01_l ul li{ float:left;}
+  .mail01 .mail01_l ol{ position:absolute; left:340px; bottom:10px;}
+  .mail01 .mail01_l ol li{ float:left; width:10px; height:10px; margin-right:10px; background-color:#CCC;}
+  .mail01 .mail01_l ol .current{ background-color:#F8517F}
+  .mail01 .mail01_r{ width:268px; height:305px; border:1px solid #E5E5E5; float:right; background-color:#FFF;}
+  .mail01 .mail01_r dl{ height:100px; padding:0 15px; margin:0 17px; border-bottom:1px solid #E5E5E5; padding-bottom:3px;}
+  .mail01 .mail01_r .dl01 dt,.mail01 .mail01_r .dl02 dt,.mail01 .mail01_r .dl03 dt{height:27px; line-height:22px; 
+  padding:15px 0 0 38px; font-size:16px; color:#636363; cursor:pointer;}
+  .mail01 .mail01_r .dl01 dt{ background:url(../imges/icon.png) no-repeat 0 -75px;}
+  .mail01 .mail01_r .dl02 dt{ background:url(../imges/icon.png) no-repeat 0 -149px;}
+  .mail01 .mail01_r .dl03 dt{ background:url(../imges/icon.png) no-repeat -2px -223px;}
+  .mail01 .mail01_r dl dd{ color:#AFAFAF; line-height:23px;}
+  
+  /*主体02*/
+  .mail02{ width:980px; height:auto; margin:0 auto; margin-top:14px; overflow:hidden;}
+  .mail02 .mail02_l{ width:663px; padding:0 15px; border:1px solid #E5E5E5; background-color:#FFF;
+   color:#4B4B4B;  float:left;} 
+  .mail02 .mail02_l .title{height:45px; line-height:45px;}
+  .mail02 .mail02_l .title h2{float:left;}
+  .mail02 .mail02_l .title .more{ float:right;  display:inline-block; color:#636363;}
+  .mail02 .mail02_l .title .more:hover{ text-decoration:underline; color:#F8517F;}
+  .mail02 .mail02_l ul{ width:660px; overflow:hidden;}
+  .mail02 .mail02_l ul li{ width:210px; height:325px; float:left; display:inline-block; margin-right:15px;}
+  .mail02 .mail02_l ul li h3{ padding-left:10px; width:190px; height:22px; line-height:22px; text-align:center; z-index:10;}
+  .mail02 .mail02_l ul li h3 a:hover{ text-decoration:underline;}
+  .mail02 .mail02_l ul li .pic{ width:155px; height:210px;}
+  .mail02 .mail02_l ul li.no{ margin-right:0px;}
+  .mail02 .mail02_l ul li .tips{ width:190px; height:59px; text-align:center; color:#707070; padding-top:10px; 
+  padding-left:10px; line-height:22px;} 
+  .mail02 .mail02_l ul li .price-space{ width:190px; text-align:center; padding-left:10px;}
+  .mail02 .mail02_l ul li .price{ color:#F8517F; font-size:18px;}
+  .mail02 .mail02_l ul li .free,.mail02_l ul li .hfree{ width:190px; height:30px; line-height:30px; text-align:center; 
+  background-color:#F8517F; display:block; margin:8px 0 0 10px; cursor:pointer;}
+  .mail02 .mail02_l ul li .hfree{ background-color:#C63955;}
+  .mail02 .mail02_l ul li .free a{ font-size:14px; color:#FFF;}
+  .mail02 .mail02_l ul li .free a:hover{ color:#FFF;}
+  
+  .mail02 .mail02_r{ width:268px;  padding-bottom:5px; border:1px solid #E5E5E5; background-color:#FFF; float:right;}
+  .mail02 .mail02_r h2{ font-size:16px; height:45px; line-height:45px; font-weight:bold; color:#FC6995; padding-left:15px;}
+  .mail02 .mail02_r .show-list{ padding:6px 15px 0; }
+  .mail02 .mail02_r ul li{ width:100%; height:34px; border-bottom:1px solid #EFEFEF; overflow:hidden;}
+  .mail02 .mail02_r ul li a{ display:inline-block; width:200px; height:34px; line-height:34px; font-size:14px; color:#6c6d6f; }
+  .mail02 .mail02_r ul li a:hover{text-decoration:underline; color:#FC6995;}
+  .mail02 .mail02_r span.v{ width:34px; height:34px; background:url(../imges/index_ico.png) no-repeat right -262px; 
+  display:inline-block; float:right;}
+  
+  /*主体03*/
+  .mail03{ width:948px; padding:0 15px;display:block; border:1px solid #E5E5E5; 
+  background-color:#FFF;  margin:0 auto; overflow:hidden; margin-top:14px; padding-bottom:14px;}
+  .mail03 .title{  height:45px; line-height:45px; color:#4B4B4B;}
+  .mail03 .title h2{ float:left; display:inline;}
+  .mail03 .title .more{ float:right; margin-right:18px;}
+  .mail03 .title .more:hover{ color:#FC6995; text-decoration:underline;}
+  .mail03 ul { width:948px;}
+  .mail03 ul{_margin-top:-10px;}
+  .mail03 ul li{ float:left; width:225px; height:260px; margin-right:15px;display:inline-block; 
+  position:relative; _display:inline; overflow:hidden;}
+  .mail03 ul li a{ width:225px; height:260px;}
+  .mail03 ul li .ltitle,.mail03 ul li .backdrop{ width:225px; height:30px; line-height:30px; text-align:center; 
+  color:#FFF;padding-left:0px; position:absolute;left:0; bottom:-30px; z-index:99; cursor:pointer;}
+  .mail03 ul li .backdrop{ background-color:#000; z-index:98;}
+	
