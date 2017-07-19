@@ -2,5 +2,15 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/bjfz-pc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/bjfz-phone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/caipiWx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/hituiPC" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/hituiWap" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/qhshWx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/tuliao-pc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/tuliaoWx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/zycmWx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/website/zymtPC" vcs="Git" />
   </component>
 </project>
