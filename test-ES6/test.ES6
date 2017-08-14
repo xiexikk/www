@@ -60,3 +60,81 @@ for(let index of ar3.keys()){
 }
 
 
+let objo = {
+    0:"我是0",
+    1:"我是1",
+    2:"我是2",
+    length:3,
+    //添加[Symbol.iterator]方法
+    [Symbol.iterator]:function () {
+        let _this = this;
+        let index = 0;
+        return{
+            next:() =>{
+                let value = _this[index];
+                let done = (index>=_this.length);
+                index++;
+                return {value,done}
+            }
+        }
+    }
+};
+for(let v of objo){
+    console.log(v);
+}
+
+class Animal {
+    //构造方法
+    constructor(names){
+        //属性name
+        this.names = names;
+        console.log(this.names);
+    }
+
+    //自定义方法getName
+    getNames(){
+        console.log('This is a '+this.names);
+        return 'This is a'+this.names;
+    }
+}
+
+//创建一个Animal实例对象pig
+let pig = new Animal('pig');
+pig.names; //结果：pig
+pig.getNames(); //结果：This is a pig
+
+
+
+
+class Father {
+    //构造函数
+    constructor(namex){
+        this.namex = namex;
+    }
+    //父类自定义方法
+    say(){
+        return `This is a animal`;
+    }
+}
+
+//子类Child
+class Child extends Father{
+    constructor(namex,colorx){
+        super(namex);       //super来引用父类，访问父类的方法 ; 它相当于是父类中的this。
+        this.colorx = colorx;
+    }
+    //子类的实例方法
+    getAttritube(){
+        console.log(`${super.say()}, namex: ${this.namex},colorx: ${this.colorx}`);
+
+        return `${super.say()},
+                    namex: ${this.namex},
+                    colorx: ${this.colorx}`;
+    }
+}
+//创建Child实例对象
+let cc = new Child('cat','black');
+
+
+let {totalPage: totalPage, page: currentPage} = d;
+

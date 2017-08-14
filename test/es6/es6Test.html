@@ -1129,10 +1129,503 @@ var [a,b,c,d,e,f] = "我就是前端君";
     }
 </script>
 
+<!----------ES6的 Iterator 遍历器到底是什么？-------------->
+<script>
+    //1.for...of为啥不遍历Object对象
+    let objj = {"name":"前端君"};
+    /*for(let v of objj){
+        console.log(v); //objj[Symbol.iterator] is not a function
+    }*/
+    //有一个叫[Symbol.iterator]()方法的数据结构，就可以被for...of遍历，
+    // 我们称之为：可遍历对象。唯独Object对象的原型上没有Symbol.iterator
+
+    //2.Iterator遍历器的原理
+   /* for...of的原理就是：先调用可遍历对象的[Symbol.iterator]( )方法，
+    得到一个iterator遍历器对象，然后就在遍历器上不断调用next( )方法，
+    直到done的值为true的时候，就表示遍历完成结束了。*/
+    let arrZi = ['a','b','c'];
+    //调用数组的Symbol.iterator()方法
+    let iter = arrZi[Symbol.iterator]();
+    iter.next();
+    //结果：{value: "a", done: false}
+    iter.next();
+    //结果：{value: "b", done: false}
+    iter.next();
+    //结果：{value: "c", done: false}
+    iter.next();
+    //结果：{value: undefined, done: true}
+
+    //3.自定义Iterator遍历器
+    /*可以创建一个可遍历的对象，并且自定义它的遍历行为。
+    或者说可以通过添加[Symbol.iterator]()方法，把一个不可遍历的Object对象，变成可遍历的对象。*/
+    let objo = {
+        0:"我是0",
+        1:"我是1",
+        2:"我是2",
+        length:3,
+        //添加[Symbol.iterator]方法
+        [Symbol.iterator]:function () {
+            let _this = this;
+            let index = 0;
+            return{
+                next:() =>{
+                    let value = _this[index];
+                    let done = (index>=_this.length);  //false false false true
+                    index++;
+                    return {value,done}
+                }
+            }
+        }
+    };
+    //for...of一下
+    for(let v of objo){
+        console.log(v);
+    }
+    //结果："我是0"
+    //      "我是1"
+    //      "我是2"
+</script>
+
+<!-----------有一种特殊的函数叫：Generator函数------------>
+<script>
+    //1.声明Generator函数
+    //Generator函数，又称生成器函数
+    function* hellop(name) {
+        yield `hello ${name}`;
+        yield `how are you`;
+        yield `buy`;
+    }
+
+    //2.调用Generator函数
+    let itep = hellop('前端君');
+    itep.next();
+    //{value: "hello 前端君", done: false}
+    itep.next();
+    //{value: "how are you", done: false}
+    itep.next();
+    //{value: "bye", done: false}
+    itep.next();
+    //{value: undefined, done: true}
+    //Generator函数被调用后得到的生成器理解成一个遍历器iterator，用于遍历函数内部的状态。
+
+    //3.next( )方法接收参数
+    //next( )方法还可以接受一个参数，它的参数会作为上一个yield的返回值
+    function* hell() {
+        let res = yield `hello`;
+        yield res;
+    }
+    let iterator = hell();
+    //结果：一个生成器对象
+    iterator.next();
+    //结果：{value: "hello", done: false}
+    iterator.next("前端君");
+    //结果：{value: "前端君", done: false}
+
+</script>
+
+<!----------ES6新增的 Set 和 WeakSet 是什么东西？---------->
+<script>
+    //1.------------Set------------
+    /*Set是ES6给开发者带来的一种新的数据结构，你可以理解为值的集合。
+    我们平时见到的数组Array也是一种数据结构，但是Set跟其他数据结构不同的地方就在于："它的值不会有重复项"。*/
+    //Set的用法
+    var se = new Set();
+    console.log(se);     //set{}
+    //给Set对象增加一些值成员
+    var se2 = new Set([1,2,3]);
+    console.log(se2);    // Set {1 ,2 ,3}
+    //或者
+    var se3 = new Set();
+        //使用add方法添加成员
+    se3.add(1);
+    se3.add(2);
+    se3.add(3);
+    console.log(se3);       //Set {1, 2 ,3}
+    //成员值唯一
+    var se4 = new Set();
+    se4.add(1);
+    se4.add(1);
+    console.log(se4);       //Set {1}
+    //size属性:获取成员的个数。
+    let se5 = new Set([1,2,3,4]);
+    se5.size;      //4
+
+    //delete( )方法
+    //用户删除Set结构中的指定值，删除成功返回：true，删除失败返回：fasle。
+    var se6 = new Set([1,2,3]);
+    //使用delete方法删除指定值
+    se6.delete(2);   //true
+    se6.delete(4);   //false
+    console.log(se6);   //Set {1, 3}
+
+    //clear( )方法
+    //清除所有成员。
+    var se7 = new Set([1,2,3]);
+    se7.clear();
+    console.log(se7);         //Set {}
+
+    //has( )方法
+    //has( )方法：判断set结构中是否含有指定的值。如果有，返回true；如果没有，返回fasle。
+    var se8 = new Set([1,2,3]);
+    se8.has(1);     //true
+    se8.has(4);     //false
+
+    //entries( )方法：返回一个键值对的遍历器。
+    //Set结构的键名和键值是同一个值
+    var se9 = new Set(['a','b','c']);
+    se9.entries();   // SetIterator {["a", "a"], ["b", "b"], ["c", "c"]}
+
+    //keys( ) 和 values( ) 方法
+    //keys( )方法：返回键名的遍历器。
+    //values( )方法：返回键值的遍历器。
+    var se10 = new Set(['a','b','c']);
+    se10.keys();       //SetIterator {"a", "b", "c"}
+    se10.values();     //SetIterator {"a", "b", "c"}
+    //for...of
+    var se11 = new Set(['a','b','c']);
+    for(let [i,v] of se11.entries()){
+        console.log(i+' '+v);
+    }
+    //打印结果：a  a
+    //         b  b
+    //         c  c
+
+    //forEach( )方法
+    // forEach( )方法：遍历每一个成员。
+    var se12 = new Set(['a','b','c']);
+    se12.forEach(function(value,key){
+       console.log(value,key);
+    });
+    //打印结果：a  a
+    //         b  b
+    //         c  c
+
+    // Set的用途之一
+    //利用Set结构的成员值不能重复的特点，“数组去重”
+    let szArr = [1,2,2,3,4,4,3]
+    let qc = new Set(szArr);
+    console.log(qc);
+    //结果：Set {1,2,3,4}
+    let newSzArr = Array.from(qc);      //Array.from()可以将类似数组的对象或者可遍历的对象转换成真正的数组。
+    console.log(newSzArr);
+    //结果：[1,2,3,4],完成去重
+
+// -------WeakSet结构---------
+    /*WeakSet结构同样不会存储重复的值，不同的是，它的成员必须是"对象类型"的值。
+    （严格来说是：具有 iterable 接口的对象）*/
+    let ws = new WeakSet([{"age":20}]);
+    console.log(ws);       //WeakSet {Object {age: 20}}
+    //初始化一个WeakSet对象
+    //let ws1 = new WeakSet([1,2]);
+    //console.log(ws1);      //报错
+    //以上的写法就会报错，因为数组的元素不是对象类型的，是数字1,2。
+
+</script>
+
+<!-----------ES6新增的Map和WeakMap 又是什么东西？-------------->
+<script>
+    //Map的基本用法
+    /*如果想要在创建实例的同时，初始化它的内容，我们可以给它传参，
+    形式跟Set结构类型，都是需要用数组作为参数，我们来试试看看：*/
+    let m = new Map([
+        ["name","小猫"],
+        ["age",1],
+    ]);
+    console.log(m);    //Map {"name" => "小猫", "age" => 1}
+
+    //set( )方法
+    //set( )方法作用：给实例设置一对键值对，返回Map实例。
+    let m1 = new Map();
+    //添加string类型的键名
+    m1.set("name","小狗");
+    //添加一个数字类型的键名
+    m1.set(1,2);
+    console.log(m1);     //Map {"name" => "小狗", 1 => 2}
+
+    let m2 = new Map();
+    m2.set("name","前端君");
+    console.log(m2);     //Map {"name" => "前端君"}
+    //再次设置name的值
+    m2.set("name","微博君");
+    console.log(m2);      //Map {"name" => "微博君"}
+
+    //get( )方法
+    //get( )方法作用：获取指定键名的键值，返回键值。
+    let m3 = new Map([["name","前端君"]]);
+    m3.get("name");      //前端君
+    m3.get("age");      //undefined
+
+    //----WeakMap的基本用法
+    let wm = new WeakMap();
+    //数组类型的键名
+    wm.set([1],2);
+    //对象类型的键名
+    wm.set({'name':'小猪'},2);
+
+    //函数类型的键名
+    function fnxx() {};
+    wm.set(fnxx,2);
+
+    console.log(wm);
+    //WeakMap {[1] => 2, Object {name: "小猪"} => 2, function => 2}
+</script>
+
+<!-------------教你如何使用ES6的Promise对象-------------->
+<script>
+    //传统:
+    //------请求A 开始---------
+    /*$.ajax({
+        success:function(res1){
 
 
+            //------请求B 开始----
+            $.ajax({
+                success:function(res2){
 
 
+                    //----请求C 开始---
+                    $.ajax({
+                        success:function(res3){
+                        }
+                    });
+                    //---请求C 结束---
+
+
+                }
+            });
+            //------请求B 结束-----
+
+
+        }
+    });*/
+    //------请求A 结束---------
+    // Promise的基本用法
+    let prop = new Promise(function (resolve,reject) {
+        //......
+    });
+    /*Promise对象是全局对象，你也可以理解为一个类，创建Promise实例的时候，要有那个new关键字。
+    参数是一个匿名函数，其中有两个参数：resolve和reject，两个函数均为方法。
+    resolve方法用于处理异步操作成功后业务；reject方法用于操作异步操作失败后的业务。*/
+
+    //Promise的是三种状态
+    //1.pending：刚刚创建一个Promise实例的时候，表示初始状态；
+    //2.fulfilled：resolve方法调用的时候，表示操作成功；
+    //3.rejected：reject方法调用的时候，表示操作失败；
+   /* 状态只能从 初始化 -> 成功  或者  初始化 -> 失败，
+    不能逆向转换，也不能在成功fulfilled 和失败rejected之间转换。*/
+    let prox = new Promise(function (resolve,reject) {
+        //实例化后状态：pending
+        if('操作成功'){
+            resolve();
+            //resolve方法调用，状态为：fulfilled
+        }else{
+            reject();
+            //reject方法调用，状态为：rejected
+        }
+    });
+
+    //then( )方法****
+    prox.then(function (res) {
+        //操作成功的处理程序
+    },function (error) {
+        //操作失败的处理程序
+    });
+
+    //catch( )方法
+
+    prox.catch(function (error) {
+        //操作失败的处理程序
+    });
+   // catch只接受一个参数，用于处理操作异常后的业务。
+
+    //建议使用：
+    prox.then(function (res) {
+        //操作成功的处理程序
+    }).catch(function (error) {
+        //操作失败的处理程序
+    });
+
+    //案列1：
+    //用new关键字创建一个Promise实例
+    let pros = new Promise(function (resolve,reject) {
+        //假设condition的值为true
+        let condition = true;
+        if(condition){
+            //调用操作成功方法
+            resolve('操作成功');
+            //状态：pending->fulfilled
+        }else{
+            //调用操作异常方法
+            reject('操作异常');
+            //状态：pending->rejected
+        }
+    });
+
+    //用then处理操作成功，catch处理操作异常
+    pros.then(function (res) {
+        //操作成功的处理程序
+        console.log(res);
+    }).catch(function (error) {
+        //操作失败的处理程序
+        console.log(error);
+    });
+    //控制台输出：操作成功
+
+    //案列2：
+    let ppro = new Promise(function (resolve,reject) {
+        if(true){
+            //调用操作成功方法
+            resolve('操作成功');
+        }else{
+            //调用操作异常方法
+            reject('操作异常');
+        }
+    });
+
+    //用then处理操作成功，catch处理操作异常
+    ppro.then(requestA)
+        .then(requestB)
+        .then(requestC)
+        .then(requestError);
+    function requestA() {
+        console.log('请求A成功');
+        return '请求B，下一个就是你了';
+    }
+    function requestB(res) {
+        console.log('上一部的结果：'+res);
+        console.log('请求B成功');
+        return '请求C，下一个就是你了'
+    }
+    function requestC(res) {
+        console.log('上一部的结果：'+res);
+        console.log('请求C成功');
+    }
+    function requestError() {
+        console.log('请求失败');
+    }
+    //打印结果：
+    //请求A成功
+    //上一步的结果：请求B，下一个就是你了
+    //请求B成功
+    //上一步的结果：请求C，下一个就是你了
+    //请求C成功
+
+</script>
+
+<!-------------JavaScript也有了类（class）的概念-------------->
+<!--JavaScript的类class本质上也是基于原型prototype的实现方式做了进一步的封装-->
+<script>
+    // 1.基本用法
+    //声明一个类的写法：
+
+    //定义一个colors的类
+    class colors{
+        //构造函数constructor
+        constructor(color){
+            this.color = color;
+        }
+    }
+
+    //2.类的属性和方法
+    class dongwu {
+        //构造方法
+        contructor(name){
+            //属性name
+            this.name = name;
+        }
+
+        //自定义方法getName()
+        getName(){
+            return this.name;
+        }
+    }
+    /*我们把类名后面的括号{ }里面的内容称之为类体，我们会在类体内来编写类的属性和方法。
+    上面的案例中，类体内有2个方法：constructor( )、getName()。*/
+   /* 其中constructor方法是构造方法，在实例化一个类的时候被调用。constructor方法是必须的，也是唯一的，
+    一个类体不能含有多个constructor构造方法。我们可以在方法里面自定义一些对象的属性，比如案例中的name属性。*/
+
+    //3.类的实例对象
+    //实例方法:
+    class Animal {
+        //构造方法
+        constructor(names){
+            //属性name
+            this.names = names;
+            console.log(this.names);
+        }
+
+        //自定义方法getName
+        getNames(){
+            console.log('This is a '+this.names);
+            return 'This is a'+this.names;
+        }
+    }
+
+    //创建一个Animal实例对象pig
+    let pig = new Animal('pig');
+    pig.names; //结果：pig
+    pig.getNames(); //结果：This is a pig
+
+    //4.类的静态方法
+    //直接使用类名即可访问的方法，我们称之为“静态方法”。
+    class wuti {
+        //构造函数
+        constructor(name){
+            //属性name
+            this.name = name;
+        }
+        //自定义一个静态方法
+        static friends(a1,a2){
+            console.log(`${a1.name} and ${a2.name} are friends`);
+            return `${a1.name} and ${a2.name} are friends`;
+        }
+    }
+    //创建2个实例
+    let jack = new wuti('jack');
+    let mike = new wuti('mike');
+    wuti.friends(jack,mike);        //jack and mike are friends
+    //静态方法的定义需要使用static关键字来标识，而实例方法不需要；
+    // 此外，静态方法通过类名来的调用，而实例方法通过实例对象来调用。
+
+    //5.类的继承
+    //使用extends关键字来实现子类继承父类
+    class Father {
+        //构造函数
+        constructor(namex){
+          this.namex = namex;
+        }
+        //父类自定义方法
+        say(){
+            return `This is a animal`;
+        }
+    }
+
+    //子类Child
+    class Child extends Father{
+        constructor(namex,colorx){
+            super(namex);       //super来引用父类，访问父类的方法 ; 它相当于是父类中的this。
+            this.colorx = colorx;
+        }
+        //子类的实例方法
+        getAttritube(){
+            console.log(`${super.say()}, namex: ${this.namex},colorx: ${this.colorx}`);
+
+            return `${super.say()},
+                    namex: ${this.namex},
+                    colorx: ${this.colorx}`;
+        }
+    }
+    //创建Child实例对象
+    let cc = new Child('cat','black');
+    cc.getAttritube();
+
+   /* 结果：This is a animal,namex: cat,colorx: black*/
+
+
+    //子类必须在constructor方法中调用super方法
+    //必须先调用super( )，才可以使用this，否则报错
+
+</script>
 
 
 </body>

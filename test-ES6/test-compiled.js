@@ -1,5 +1,17 @@
 'use strict';
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var a = '1';
 var b = '2';
 input.map(function (item) {
@@ -39,13 +51,13 @@ arr02.forEach(function (v) {
 var obj2 = {
     x: 100, //属性x
     show: function show() {
-        var _this = this;
+        var _this2 = this;
 
         //延迟500毫秒，输出x的值
         setTimeout(
         //不同处：箭头函数
         function () {
-            console.log(_this.x);
+            console.log(_this2.x);
         }, //this是指的obj，
         500);
     }
@@ -115,5 +127,137 @@ try {
         }
     }
 }
+
+var objo = _defineProperty({
+    0: "我是0",
+    1: "我是1",
+    2: "我是2",
+    length: 3
+}, Symbol.iterator, function () {
+    var _this = this;
+    var index = 0;
+    return {
+        next: function next() {
+            var value = _this[index];
+            var done = index >= _this.length;
+            index++;
+            return { value: value, done: done };
+        }
+    };
+});
+var _iteratorNormalCompletion3 = true;
+var _didIteratorError3 = false;
+var _iteratorError3 = undefined;
+
+try {
+    for (var _iterator3 = objo[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var v = _step3.value;
+
+        console.log(v);
+    }
+} catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+} finally {
+    try {
+        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+        }
+    } finally {
+        if (_didIteratorError3) {
+            throw _iteratorError3;
+        }
+    }
+}
+
+var Animal = function () {
+    //构造方法
+    function Animal(names) {
+        _classCallCheck(this, Animal);
+
+        //属性name
+        this.names = names;
+        console.log(this.names);
+    }
+
+    //自定义方法getName
+
+
+    _createClass(Animal, [{
+        key: 'getNames',
+        value: function getNames() {
+            console.log('This is a ' + this.names);
+            return 'This is a' + this.names;
+        }
+    }]);
+
+    return Animal;
+}();
+
+//创建一个Animal实例对象pig
+
+
+var pig = new Animal('pig');
+pig.names; //结果：pig
+pig.getNames(); //结果：This is a pig
+
+
+var Father = function () {
+    //构造函数
+    function Father(namex) {
+        _classCallCheck(this, Father);
+
+        this.namex = namex;
+    }
+    //父类自定义方法
+
+
+    _createClass(Father, [{
+        key: 'say',
+        value: function say() {
+            return 'This is a animal';
+        }
+    }]);
+
+    return Father;
+}();
+
+//子类Child
+
+
+var Child = function (_Father) {
+    _inherits(Child, _Father);
+
+    function Child(namex, colorx) {
+        _classCallCheck(this, Child);
+
+        //super来引用父类，访问父类的方法 ; 它相当于是父类中的this。
+        var _this3 = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, namex));
+
+        _this3.colorx = colorx;
+        return _this3;
+    }
+    //子类的实例方法
+
+
+    _createClass(Child, [{
+        key: 'getAttritube',
+        value: function getAttritube() {
+            console.log(_get(Child.prototype.__proto__ || Object.getPrototypeOf(Child.prototype), 'say', this).call(this) + ', namex: ' + this.namex + ',colorx: ' + this.colorx);
+
+            return _get(Child.prototype.__proto__ || Object.getPrototypeOf(Child.prototype), 'say', this).call(this) + ',\n                    namex: ' + this.namex + ',\n                    colorx: ' + this.colorx;
+        }
+    }]);
+
+    return Child;
+}(Father);
+//创建Child实例对象
+
+
+var cc = new Child('cat', 'black');
+
+var _d = d,
+    totalPage = _d.totalPage,
+    currentPage = _d.page;
 
 //# sourceMappingURL=test-compiled.js.map

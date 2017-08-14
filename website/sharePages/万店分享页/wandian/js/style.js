@@ -53,6 +53,28 @@ $(document).ready(function(){
             //$('html,body').addClass('of');
             $('.para-pop').fadeIn(speed);
         });
+        $('.buy-pop').css('display','block');
+        $('.buy-pop').css({'display':'block','top':100+'%'});
+        $.extend($.fn,{
+            showPop : function () {
+                $('#invt-pop').animate({'top':0},150);
+               // $('body,html').addClass('of');
+            },
+            hidePop : function () {
+                $('#invt-pop').animate({'top':100+'%'},150);
+                //$('body,html').removeClass('of');
+
+            }
+        });
+        $('.js-parm').on('click',function () {
+           $(this).showPop();
+        });
+        $('.close').on('click',function () {
+            $(this).hidePop();
+        });
+
+
+
 
         //选择
         $('.js-sel').on('click',function(){
