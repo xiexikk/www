@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用学过的知识做一个小demo</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .edit{
+            display:block ;
+            width:80%;
+            height: 35px;
+            line-height: 35px;
+            margin: 30px auto;
+            box-sizing: border-box;
+            padding-left: 4px;
+            border-radius: 4px;
+            border:1px solid #ccc;
+            outline: 0;
+            box-shadow: 0 0 5px #ccc;
+        }
+
+        .list{
+            margin: 0 auto;
+            width:80%;
+        }
+        .unit{
+            position: relative;
+            padding: 10px 0;
+            border-bottom: 1px solid #efefef;
+        }
+        .unit:last-child{
+            border-bottom: 0;
+        }
+        .finish{
+            text-decoration: line-through;
+            color: #ccc;
+        }
+
+        .del{
+            background: red;
+            text-decoration: none;
+            position: absolute;
+            right:0;
+            font-size: 12px;
+            border: 0;
+            outline: 0;
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .empty{
+            font-size: 13px;
+            color: #ccc;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <input class="edit" type="text" placeholder="编写任务" v-model="task.content" @keydown.enter="addTask">
+    <div class="list">
+        <!--可以用 of 替代 in 作为分隔符，因为它是最接近 JavaScript 迭代器的语法：-->
+        <div class="unit" v-for="(item,index) in list">
+            <input type="checkbox"  @click="changeState(index)" :checked="item.finshed">
+            <span :class="{'finish':item.finshed}">
+                {{item.content}}
+            </span>
+            <button class="del" @click="removeTask(index)">删除</button>
+        </div>
+    </div>
+    <!--空时：-->
+    <p class="empty" v-if="list.length===0">暂无任务</p>
+
+</div>
+<script>
+    const app = new Vue({
+       el:'#app',
+        data:{
+           // 默认初始化任务:
+           task:{
+               content:'',   //内容
+               finshed:false, //是否完成
+               deleted:false  //是否删除
+           },
+            //任务列表
+            list:[],
+        },
+        methods:{
+            //添加任务
+            addTask:function () {
+                //将rask存入list数组
+                this.list.push(this.task);
+                //存入list[]后，重置task
+                this.task = {
+                    content:'',     //内容为空
+                    finshed:false, //未完成
+                    deleted:false,  //未删除
+                }
+            },
+
+            //点击修改任务状态
+            changeState:function(index){
+                let curState =  this.list[index].finshed;
+                this.list[index].finshed = !curState;
+            },
+
+            //删除
+            removeTask:function (index) {
+                this.list.splice(index,1);
+            }
+
+        },
+    });
+</script>
+
+
+</body>
+</html>

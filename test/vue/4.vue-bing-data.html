@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教你如何在html中绑定数据</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<!--Mustache语法-->
+<!--就是双大括号{{ }}的写法-->
+<div id="app">{{ name }}</div>
+<script>
+    let app = new Vue({
+        el:"#app",
+        data:{
+            name:"前端君"
+        }
+    })
+</script>
+
+<!--绑定纯html-->
+<!--v-html指令：-->
+<div id="app-html" v-html="name"></div>
+<script>
+    let app2 = new Vue({
+       el:"#app-html",
+        data:{
+           name:"<strong>前端君</strong>"
+        }
+    });
+</script>
+
+<!--绑定属性-->
+<div id="app-bind">
+    <!--在href前用v-bind：修饰-->
+    <!--完整写：-->
+    <a v-bind:title="title" v-bind:href="link">百度官网</a>
+    <!--缩写：-->
+    <a :title="title" :href="link">百度官网</a>
+</div>
+<script>
+    let app3 = new Vue({
+        el:"#app-bind",
+        data:{
+            title:"百度官网",
+            link:"http://www.baidu.com"
+        }
+    }) ;
+</script>
+
+<!--此外，需要注意的是：当渲染的属性值是布尔值的时候（true和false），
+效果就不一样了，并不是简单地将true或者false渲染出来，而是当值为false的时候，属性会被移除。-->
+<div id="app-be">
+    <!--我们用缩写的语法-->
+    <button :disabled="dis_true">
+        我是true
+    </button>
+    <!--布尔属性为false时错误：-->
+    <button :disabled="dis_false">
+        我是false
+    </button>
+</div>
+<script>
+    let app4 = new Vue({
+        el:"#app-be",
+        data:{
+            dis_true:true,
+            dis_false:false
+        }
+    });
+</script>
+
+<!--支持javascript表达式-->
+<!--加减乘除运算：-->
+<div id="app-jisuan">{{ num+3 }}</div>
+<script>
+    let app5 = new Vue({
+        el:"#app-jisuan",
+        data:{
+            num:2
+        }
+    });
+</script>
+<!--三元运算符：-->
+<div id="app-sy">{{ ok ? 'yes':'no' }}</div>
+<script>
+    let app6 = new Vue({
+        el:"#app-sy",
+        data:{
+            ok:true
+        }
+    });
+</script>
+<!--字符串拼接：-->
+<div id="app-string">
+    <a :href="'http://'+host">百度</a>
+</div>
+<script>
+    let app7 = new Vue({
+        el:"#app-string",
+        data:{
+            host:'baidu.com'
+        }
+    });
+</script>
+
+
+</body>
+</html>

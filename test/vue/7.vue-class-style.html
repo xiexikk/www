@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态绑定class和style</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<!--1.绑定class-->
+<!--对象语法：我们动态绑定的class的值是一个对象{ }-->
+<div id="app">
+    <p :class="{'active':isActive,'dabnger':isDanger}">这是文字</p>
+</div>
+<script>
+    //创建一个实例vm
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            isActive:true,
+            isDanger:false
+        }
+    });
+</script>
+<!--在对象中，若该属性对应的value为true，则该属性会被渲染出来，为false，则不被渲染出来。-->
+
+<!--数组语法：-->
+<div id="app2">
+    <p :class="[activeClass,errorClass]">这是文字</p>
+</div>
+<script>
+    const vm2 = new Vue({
+        el:"#app2",
+        data:{
+            activeClass:'active',
+            errorClass:'error'
+        }
+    });
+</script>
+
+<!--2.绑定内联样式style-->
+<div id="app3">
+    <p :style="{color:colorStyle}">这是文字</p>
+</div>
+<script>
+    const vm3 = new Vue({
+        el:"#app3",
+        data:{
+            colorStyle:'red'
+        }
+    });
+</script>
+
+</body>
+</html>

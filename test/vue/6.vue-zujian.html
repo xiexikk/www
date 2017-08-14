@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>掌握vue的另一个核心：组件</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<!--实现组件-->
+<div id="app">
+    <my-article></my-article>
+</div>
+<script>
+//    接下来，我们在创建实例vm之前，利用vue提供的API来注册一个组件。
+    Vue.component('my-article',{
+       template:`<div>
+                 <h1>这里是文章的标题</h1>
+                 <div>
+                <span>2017年7月28日</span>
+                <span>原创</span>
+                </div>
+                </div>`
+    });
+//创建一个vue实例
+    let vm = new Vue({
+       el:"#app",
+    });
+</script>
+
+<!--那么，我们就通过传参的方式把这些数据传到组件，实现数据动态展示。-->
+<div id="app2">
+    <my-article2 :detail="article"></my-article2>
+</div>
+<script>
+//    注册组件
+    Vue.component('my-article2',{
+        props:['detail'],
+        template:`<div>
+                 <h1>{{detail.title}}</h1>
+                 <div>
+                <span>{{detail.date}}</span>
+                <span v-show="detail.is_orginal">原创</span>
+                </div>
+                </div>`
+    });
+//创建一个vue实例
+    let vm2 = new Vue({
+        el:"#app2",
+        data:{
+            article:{
+                title:"标题标题",
+                date:"2017年03月06日",
+                is_orginal:true
+            }
+        }
+    });
+</script>
+
+<!--数据是动态读取了，那么我们的目录并不仅仅只有一篇文章，
+当我们数据多了之后，该用什么方式展示出来呢？-->
+<div id="app3">
+    <my-article v-for="item in articles" :detail="item"></my-article>
+</div>
+
+<script>
+    let vm3 = new Vue({
+        el:"#app3",
+        data:{
+            articles:[
+                {
+                    title:"标题01",
+                    date:"日期01",
+                    is_orginal:true
+                },
+                {
+                    title:"标题02",
+                    date:"日期02",
+                    is_orginal:true
+                },
+                {
+                    title:"标题03",
+                    date:"日期03",
+                    is_orginal:false
+                },
+            ]
+        }
+    });
+</script>
+
+</body>
+</html>

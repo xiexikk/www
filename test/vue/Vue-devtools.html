@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="https://unpkg.com/vue@2.3.3/dist/vue.js"></script>
+</head>
+<body>
+
+<!--加法计算器-->
+<div id="app-jf">
+    <input  @keyup="calculate"
+            type="text"
+            v-model="augend">
+    <span>+</span>
+    <input  @keyup="calculate"
+            type="text"
+            v-model="addend">
+    <span>=</span>
+    <input  type="text"
+            :value="sum">
+    <br>
+    <br>
+    <button @click="reset">
+        清空数据
+    </button>
+</div>
+
+<script>
+    const appJF = new Vue({
+        el:"#app-jf",
+        data:{
+            augend:'',
+            addend:'',
+            sum:''
+        },
+        methods:{
+            calculate(){
+                this.sum = Number(this.augend)
+                    +
+                    Number(this.addend);
+            },
+            reset(){
+                this.sum = this.augend
+                    = this.addend = '';
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

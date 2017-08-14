@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue提供的组件也叫transition</title>
+    <script src="js/vue.js"></script>
+<style>
+    .box{
+        width:100%;
+        height:100%;
+        text-align: center;
+        line-height: 200px;
+        background: #ff8282;
+        color: #Fff;
+        /*以下两个默认值，可不写*/
+        /*写上只是为了便于讲解，记住这两个*/
+        opacity: 1;
+        margin-left: 0;
+    }
+
+    .box-enter{
+        opacity: 0;
+        margin-left: 100%;
+    }
+    .box-enter-active,.box-leave-active{
+        transition: all .8s;
+    }
+    .box-leave-active{
+        opacity: 0;
+        margin-left: 100%;
+    }
+
+</style>
+</head>
+<body>
+
+Vue提供的 transition 组件，会在下列四种情况下起作用：<br>
+1. 条件渲染（使用v-if）<br>
+2. 条件展示（使用了v-show）<br>
+3. 动态组件<br>
+4. 组件根节点<br>
+
+<div id="app" class="app">
+    <button class="btn"  @click="showBox = !showBox" >切换</button>
+    <transition name="box">
+        <div v-show="showBox" class="box">
+            i am the box
+        </div>
+    </transition>
+</div>
+<script>
+    const app = new Vue({
+        el:"#app",
+        data:{
+            showBox:false
+        }
+    });
+</script>
+
+</body>
+</html>

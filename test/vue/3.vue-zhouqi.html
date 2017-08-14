@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+Vue把整个生命周期划分为创建、挂载、更新、销毁等阶段，
+每个阶段都会给一些“钩子”让我们来做一些我们想实现的动作。
+学习实例的生命周期，能帮助我们理解vue实例的运作机制，更好地合理利用各个钩子来完成我们的业务代码。
+
+<div id="app">{{name}}</div>
+<script>
+    let app = new Vue({
+        el:"#app",
+        data:{
+            name:"前端君"
+        },
+        //beforeCreate:此阶段为实例初始化之后，此时的数据观察和事件配置都没好准备好。
+        beforeCreate(){
+            console.log('即将创建');    //即将创建
+            console.log(this.$data);    //undefined
+            console.log(this.$el);      //undefined
+        },
+        //beforeCreate之后紧接着的钩子就是创建完毕created
+        created(){
+            console.log('创建完毕');    //创建完毕
+            console.log(this.$data);   //Object {__ob__: Observer}
+            console.log(this.$el);      //undefined
+        }
+    })
+</script>
+
+
+</body>
+</html>

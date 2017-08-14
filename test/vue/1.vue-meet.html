@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="js/vue.js"></script>
+</head>
+<br>
+<!--Vue.js-->
+MVVM可以拆分成：View --- ViewModel --- Model</br>
+数据绑定 和 视图组件</br>
+Vue的数据驱动：数据改变驱动了视图的自动更新，传统的做法你得手动改变DOM来改变视图，</br>
+vuejs只需要改变数据，就会自动改变视图，一个字：爽。再也不用你去操心DOM的更新了，这就是MVVM思想的实现。</br>
+
+视图组件化：把整一个网页的拆分成一个个区块，每个区块我们可以看作成一个组件。</br>
+网页由多个组件拼接或者嵌套组成。</br>
+
+----------------------------------------------------------------------------
+<!--数据驱动视图-->
+<div id="app">
+    公众号：{{ name }}
+</div>
+<script>
+    let vm = new Vue({
+       el:"#app",
+       data:{
+           name:"web前端教程"
+       }
+    });
+</script>
+
+<!--**双向绑定**-->
+<div id="num-app">
+    <input type="text" v-model="number">
+    <span>数字：{{ number }}</span>
+</div>
+<script>
+    let num = new Vue({
+       el:"#num-app",
+        data:{
+           number:"",
+        }
+    });
+</script>
+
+<!--组件-->
+<!--组件化就是把页面中特定的区块独立抽出来，并封装成一个可方便复用的组件。-->
+<!--如果我们把每个卡片看作一个可复用的区域的话，那么它就可以封装成一个组件。
+在Vue.js中，我们试着把卡片封装成一个组件。-->
+<div id="card-app">
+    <card></card>
+    <card></card>
+    <card></card>
+</div>
+<script>
+    Vue.component('card',{
+        template:`<div>
+                <img src="img/logo.png" alt="">
+                <h2>web前端教程</h2>
+                <p>文字描述</p>
+                </div>`
+    });
+    new Vue({
+       el:"#card-app"
+    });
+</script>
+
+
+</body>
+</html>

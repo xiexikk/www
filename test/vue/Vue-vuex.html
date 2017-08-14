@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vuex的3个核心概念</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vuex.js"></script>
+</head>
+<body>
+Vuex是一个专为Vue开发的应用程序的状态管理模式，它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。<br>
+，它有两大优点，一个是它的<b>状态存储是响应式</b>的，另一个是要<b>不能随意修改Vuex的状态</b>，必须按照它的规矩来办事。<br>
+
+<h2>核心：State</h2>
+<script>
+    //创建一个 store
+    const store = new Vuex.Store({
+        //state存储应用层的状态
+        state:{
+            count:5  //总数：5
+        }
+    });
+</script>
+
+<h2>核心：Getters</h2>
+<script>
+    const store2 = new Vuex.Store({
+        //state存储应用层的状态
+        state:{
+            count:5  //总数：5
+        },
+        //派生出来的状态
+        getters:{
+            //ES6的箭头函数语法
+            newCount:state=> state.count*3
+            //相当于
+
+            //传统语法
+           /* newCount:function (state ) {
+                return state.count * 3;
+            }*/
+        }
+    })
+</script>
+
+<h2>核心：Mutations</h2>
+<script>
+    const store3 = new Vuex.Store({
+       //state存储应用层的状态
+        state:{
+            count:5  //总数：5
+        },
+        //更改store状态的唯一途径
+        mutations:{
+            increment(state,n){
+                state.count += n;
+            }
+        }
+    });
+    //提交一个名为increment的mutation
+    store3.commit('increment',10);
+</script>
+
+</body>
+</html>

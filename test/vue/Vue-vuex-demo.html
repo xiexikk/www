@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用Vuex实现一个简单的计算器</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vuex.js"></script>
+    <style>
+        .list{ width: 200px; }
+        .list div{ width: 50px; height: 50px; line-height: 50px; text-align: center; background-color: #FAF4F1;  float: left; cursor: pointer;}
+    </style>
+</head>
+<body>
+
+<h1>计算器</h1>
+
+<div id="app">
+    <div class="result">
+        <!--绑定计算属性result-->
+        {{ result }}
+    </div>
+    <div class="enter">
+        <!--绑定计算属性enter-->
+        {{ enter === "" ? 0 : enter }}
+    </div>
+    <div class="keys">
+        <div class="list">
+            <!--键盘区域-->
+            <keyboard v-for="item in keys" :value="item"></keyboard>
+        </div>
+    </div>
+</div>
+
+<script>
+    //创建仓库store
+    const store = new Vuex.Store({
+       state:{
+           result:"",//运算结果
+           enter:""  //输入的值
+       },
+        //定义名为calculate的mutation
+        mutations:{
+            calculate(state,value){
+                if(value === '='){
+                    //按键的值为=，进行结果计算
+                    state.result = eval(state.enter);
+                    state.enter+=value;
+                }else if(value === 'clear'){
+                //按键的值为clear，清空数据
+                    state.result = state.enter = "";
+                }else{
+                    //输入结果enter进行拼接
+                    state.enter += value;
+                }
+            }
+        }
+    });
+
+    //自定义组件<keyborad/>
+    Vue.component('keyboard',{
+       //接受的参数value,代表键盘的值
+        props:['value'],
+        //模版
+        template:`<div :data-value="value" @click="getKeyboardValue">
+                        {{value}}
+                    </div>`,
+        methods:{
+            //短板和事件处理函数
+            getKeyboardValue(event){
+                //获取当前的按钮的值
+                let value = event.target.dataset.value;
+                //通过commit提交mutation
+                this.$store.commit('calculate',value);
+            }
+        }
+    });
+
+    //创建Vue实例
+    const app = new Vue({
+       //挂载元素
+        el:"#app",
+        data:{
+            //16个按键的值
+            keys:[
+                'clear', '+', '-', '*',
+                '7', '8', '9', '/',
+                '4', '5', '6', '0',
+                '1', '2', '3', '=',
+            ]
+        },
+        //仓库
+        store,
+
+        //增加计算属性
+        computed:{
+            result(){
+                //通过this.$store获取仓库的数据result
+                return this.$store.state.result;
+            },
+            enter(){
+                //通过this.$store获取仓库的数据enter
+                return this.$store.state.enter;
+            }
+        }
+
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+1.filters  过滤器
+<div id="app">
+    </p>数字1：{{ num1 | toInt }}</p>
+    </p>数字2：{{ num2 | toInt }}</p>
+    </p>数字3：{{ num3 | toInt }}</p>
+</div>
+<script>
+    let vm = new Vue({
+        //挂载元素
+        el:'#app',
+        //实例vm的数据
+        data:{
+            num1:11.258,
+            num2:22.019,
+            num3:33.236,
+        },
+        //过滤器
+        filters:{
+            toInt(value){
+                return parseInt(value);
+            }
+        }
+    });
+</script>
+
+2.computed  计算属性
+<!--我们拿到一些数据，需要经过处理计算后得到的结果-->
+<!--求和-->
+<div id="app-sum">
+    总和：{{ sum }}
+</div>
+<script>
+   let vms = new Vue({
+       //挂载元素
+        el:'#app-sum',
+       //实例vms的数据
+       data:{
+            num1:1,
+            num2:2,
+            num3:3,
+       },
+       //计算属性
+       computed:{
+            sum(){
+                return this.num1+this.num2+this.num3;
+            }
+       }
+   });
+</script>
+
+3.methods  方法
+<!--顾名思义，在methods中，我们可以定义一些方法，供组件使用。-->
+<!--比如，我们定义一个数据a，当用户点击按钮的时候，a的值加1。这种情况，我们可以利用methods来实现。-->
+<div id="app-met">
+    {{ a }}
+    <button v-on:click="plus">点击加1</button>
+</div>
+<script>
+    let vmm = new Vue({
+        //挂载属性
+        el:"#app-met",
+        //实例vmm的数据
+        data:{
+            a:0
+        },
+        //方法
+        methods:{
+            plus(){
+                return this.a++;
+            }
+        }
+    })
+</script>
+
+
+4.watch 观察
+<!--watch选项是Vue提供的用于检测指定的数据发生改变的api。-->
+<div id="app-met2">
+    {{ a }}
+    <button v-on:click="plus">点击加1</button>
+</div>
+<script>
+    let vmm2 = new Vue({
+        //挂载属性
+        el:"#app-met2",
+        //实例vmm的数据
+        data:{
+            a:0
+        },
+        //方法
+        methods:{
+            plus(){
+                return this.a++;
+            }
+        },
+        //观察
+        watch:{
+            a(){
+                console.log(`有变化了，最新值:`+this.a);
+            }
+        }
+    });
+//    a( ) 表示我们要观察监听的就是数据a
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

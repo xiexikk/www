@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-axios</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js">  </script>
+</head>
+<body>
+
+<h1>用axios来实现数据请求，简单易用</h1>
+
+<!--get请求-->
+<script>
+    axios.get('/detail?id=10').then(function (res) {
+        //成功获取数据
+        console.log(res);
+    }).catch(function (err) {
+        //请求错误
+        console.log(err);
+    });
+</script>
+
+<!--get请求也可以通过 params 对象传递参数-->
+<script>
+    axios.get('/detail',{
+       //参数
+        parms:{
+            id:10
+        }
+    }).then(function (res) {
+        //成功获取数据
+        console.log(res);
+    }).catch(function (err) {
+        //请求错误
+        console.log(err);
+    });
+</script>
+
+<!--post请求-->
+<script>
+    axios.post('/add',{
+        name:'前端君',
+        age:18
+    }).then(function (res) {
+        //成功获取数据
+        console.log(res);
+    }).catch(function (err) {
+        //请求错误
+        console.log(err);
+    });
+</script>
+
+<!--多个请求并发-->
+<!--axios提供了一次性并发多个请求的API-->
+<script>
+    function getProfile(){
+        //请求1
+        return axios.get('/profile');
+    }
+    function getUser() {
+        //请求2
+        return axios.get('/user');
+    }
+
+    //并发请求
+    axios.all([
+        getProfile(),
+        getUser()
+    ]).then(axios.spread((res1,res2)=>{
+        //两个请求现已完成
+        console.log(res1);
+        console.log(res2);
+    }));
+</script>
+
+
+</body>
+</html>
