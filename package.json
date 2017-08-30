@@ -1,7 +1,7 @@
 {
-  "name": "www",
+  "name": "mypackage",
   "version": "1.0.0",
-  "description": "",
+  "description": "一堆整理",
   "main": "index.js",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1"
@@ -16,5 +16,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiexikk/www.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xiexikk/www/issues"
+  },
+  "homepage": "https://github.com/xiexikk/www#readme"
 }

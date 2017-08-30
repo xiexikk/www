@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js">  </script>
+</head>
+<body>
+<div id="app">
+    <button type="button" id="btn" @click="fn()">按钮</button>
+
+    <my-article v-for="item in articles" :detail="item">
+
+    </my-article>
+</div>
+
+<script>
+    Vue.component('my-article',{
+        props:['detail'],
+        template:
+                `<div>
+                 <h1>{{detail.id}}</h1>
+                 <div>
+                <span>{{detail.name}}</span>
+                <span>{{detail.age}}</span>
+                </div>
+                </div>`
+    });
+    let vm = new Vue({
+        el : "#app",
+        data:{
+            articles:[
+                {
+                    id:"",
+                    name:"",
+                    age:""
+                },
+            ],
+
+        },
+        methods:{
+            fn(){
+                axios.get('../../json/test.json', {
+                    params: {
+
+                    }
+                }).then(function (res) {
+                    //成功获取数据
+                  //  console.log(res.data);
+                    vm.articles = res.data.sites;
+
+                });
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>
